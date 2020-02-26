@@ -101,8 +101,7 @@
 
 <script>/* eslint-disable indent */
 
-  import fetch from '../api/fetch'
-
+import api from '../api/index'
   export default {
     data () {
       var validUsername = (rule, value, callback) => {
@@ -149,16 +148,13 @@
       submitForm (formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            fetch
+            api
               .userLogin(this.loginInfo)
               .then(res => {
                 if (res.status === 200) {
-                  if (res.data.success === true) {
-                    localStorage.setItem('token', res.data.data.token)
-                    localStorage.setItem('companyId', res.data.data.companyId)
-                    localStorage.setItem('role', res.data.data.role)
+                  if (res.data.success) {
                     sessionStorage.setItem('userId', res.data.data.userId)
-                    if (res.data.data.role === 2) {
+                    if (res.data.data.role === 1) {
                       this.$router.push({name: 'userInfo', params: {refresh: 1}})
                     } else {
                       this.$router.push({name: 'hrView', params: {hrRefresh: 2}})

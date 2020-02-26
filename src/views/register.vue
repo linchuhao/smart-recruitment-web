@@ -192,7 +192,7 @@
 <script>/* eslint-disable indent,quotes,space-before-function-paren,brace-style */
 
 import fetch from '../api/fetch'
- import api from '../api/index'
+import api from '../api/index'
 export default {
   data() {
     var checkCode = (rule, value, callback) => {
