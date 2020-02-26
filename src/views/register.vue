@@ -314,7 +314,7 @@ export default {
             result.role = 2
             result.enterpriseName = this.hrInfo.enterpriseName
             console.log(result)
-            // HR注册
+            // 用户注册
             api
               .userRegister(result)
               .then(res => {
