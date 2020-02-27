@@ -6,7 +6,6 @@ import index from '../views/index.vue'
 Vue.use(Router)
 const register = resolve => require(['../views/register.vue'], resolve)
 const login = resolve => require(['../views/login.vue'], resolve)
-const testttt = resolve => require(['../views/testttt.vue'], resolve)
 export default new Router({
   routes: [
     {
@@ -29,11 +28,6 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
-    },
-    {
-      path: '/testttt',
-      name: 'testttt',
-      component: testttt
     }
   ]
 })
