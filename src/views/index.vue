@@ -142,8 +142,8 @@
   <div class="division"><h3>联系我们</h3>
     <h3 style="color: #888;font-weight: 400">--- CONTACT ---</h3></div>
   <div class="footer">
-    <a href="https://github.com/Clairezyw"><img src="../assets/github4.png"><span>https://github.com/Clairezyw</span></a>
-    <a href="https://github.com/stalary"><img src="../assets/github4.png"><span>https://github.com/stalary</span></a>
+    <a href="https://github.com/linchuhao"><img src="../assets/github4.png"><span>https://github.com/linchuhao</span></a>
+    <a href="https://github.com/stalary"><img src="../assets/images.png"><span>370356141@qq.com</span></a>
   </div>
 </div>
 </template>
