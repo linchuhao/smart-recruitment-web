@@ -19,7 +19,10 @@ export default {
   userLogin (userInfo) {
     return axios.post('/api/user/login', JSON.stringify(userInfo), {headers: headers})
   },
-  // 获取全部公司信息
+  // 获取热门企业信息
+  getHotEnterprise () {
+    return axios.get('/api/enterprise/getHotEnterprise', {headers: headers})
+  },
   getComName () {
     return host + '/company/noPage'
   },

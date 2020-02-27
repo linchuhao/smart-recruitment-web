@@ -72,6 +72,7 @@
     font-weight: 500;
   }
   .contain .tab{
+    cursor:pointer;
     color: white;
     font-size: 16px;
     margin: 10px;

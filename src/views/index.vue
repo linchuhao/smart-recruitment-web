@@ -13,9 +13,9 @@
                         <h3 style="color: #888;font-weight: 400">--- Hot ---</h3></div>
   <div class="cardContain">
 <div class="wrapper-card">
-  <div class="card" v-for="(item, key) in companyList" :key="key">
-    <img :src="item.avatar" class="image" @click="getCompanyDetail(item.id)">
-</div>
+  <div class="card" v-for="(item, key) in enterpriseList" :key="key">
+    <img :src="item.enterpriseLogo" class="image" @click="getCompanyDetail(item.id)">
+  </div>
 </div>
   </div>
   <!--推荐-->
@@ -253,7 +253,7 @@ body {
   background-size: 100% 100%;
   filter: grayscale(70%);
   opacity: 0.7;
-  color: white;
+  color: #07111B;
   font-weight: 600;
   padding-top: 60px;
 }
@@ -300,6 +300,7 @@ body {
 }
 
 .wrapper-card .image {
+  cursor:pointer;
   border-radius: 6px 6px 0 0;
   width: 100%;
   height: 100%;
@@ -311,6 +312,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 6px;
+  background-color: #279dff;
 }
 
 .division {
@@ -396,21 +398,22 @@ body {
 </style>
 <script>
 import fetch from '../api/fetch'
+import api from '../api/index'
 export default {
   data () {
     return {
       crouselImg: [
-        {img: 'static/ad/ad01.png'},
+        {img: 'static/ad/ad04.png'},
         {img: 'static/ad/ad02.png'},
         {img: 'static/ad/ad03.jpg'},
-        {img: 'static/ad/ad04.png'},
+        {img: 'static/ad/ad01.png'},
         {img: 'static/ad/ad05.jpg'}
 
       ],
       activeIndex2: '1',
       currentDate: '完美',
       company: '',
-      companyList: [],
+      enterpriseList: [],
       jobList: [],
       recommandList: [],
       isHr: localStorage.getItem('role') === '1',
@@ -441,7 +444,7 @@ export default {
 
   mounted () {
     window.addEventListener('scroll', this.handler)
-    this.getCompany()
+    this.getHotEnterprise()
     this.getJob()
     this.getRecommand()
   },
@@ -481,10 +484,11 @@ export default {
       })
     },
 
-    getCompany () {
-      fetch.getCompany().then(res => {
+    getHotEnterprise () {
+      api.getHotEnterprise().then(res => {
         if (res.status === 200) {
-          this.companyList = res.data.data.companyList
+          this.enterpriseList = res.data.data
+          console.log(res.data.data)
           console.log('res', res)
         }
       })
