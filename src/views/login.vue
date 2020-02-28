@@ -38,7 +38,7 @@
     width: 100%;
     border: 1px solid #ededed;
     /*background: linear-gradient(#4c4c4c, #7f7f7f);*/
-    background: #6d9df9;
+    background: linear-gradient(#1f68f6, #6d9df9);
     background-size: 100% 100%;
     min-height: 100vh;
   }

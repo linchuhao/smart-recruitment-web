@@ -237,8 +237,8 @@ body {
 .footer {
   width: 100%;
   height: 100px;
-  background: black;
-  padding-top:20px
+  background: #5788f9;
+  padding-top:20px;
 }
 
 .footer a {
@@ -248,14 +248,13 @@ body {
 
 .aboutus  {
   width: 100%;
-  height: 500px;
+  height: 250px;
   background: url("https://upload-images.jianshu.io/upload_images/9381131-fd2872c9d933b2de.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240") no-repeat;
   background-size: 100% 100%;
   filter: grayscale(70%);
   opacity: 0.7;
   color: #07111B;
   font-weight: 600;
-  padding-top: 60px;
 }
 
 .aboutus p{

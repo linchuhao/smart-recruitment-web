@@ -32,40 +32,11 @@
       </el-form>
       <div class="introduceCompany">
         <img src="../assets/logo.png" @click="toIndex"/>
-<!--        <p>Job-hunting and recruitment oriented to the Internet,
-          providing more internship and job opportunities
-          From now on, thumb up your life, start with this job.</p>-->
       </div>
       <div class="footer-tip3" @click="toLogin">
         已有账号?直接登录
       </div>
     </div>
-    <el-dialog title="公司信息" :visible.sync="dialogShow">
-      <el-form :model="companyInfo" class="companyForm">
-        <el-form-item  :label-width="formLabelWidth">
-          <el-input v-model="companyInfo.name" auto-complete="off" placeholder="名称"></el-input>
-        </el-form-item>
-        <el-form-item  :label-width="formLabelWidth">
-          <el-input v-model="companyInfo.address" auto-complete="off" placeholder="地址"></el-input>
-        </el-form-item>
-        <el-form-item  :label-width="formLabelWidth">
-          <el-input v-model="companyInfo.avatar" auto-complete="off" placeholder="logo"></el-input>
-        </el-form-item>
-        <el-form-item :label-width="formLabelWidth">
-          <el-input v-model="companyInfo.introduce" auto-complete="off" placeholder="简介"></el-input>
-        </el-form-item>
-        <el-form-item  :label-width="formLabelWidth">
-          <el-input v-model="companyInfo.scale" auto-complete="off" placeholder="规模"></el-input>
-        </el-form-item>
-        <el-form-item :label-width="formLabelWidth">
-          <el-input v-model="companyInfo.type" auto-complete="off" placeholder="类型"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogShow = false">取 消</el-button>
-        <el-button type="primary" @click="submitCompanyInfo">确 定</el-button>
-      </div>
-    </el-dialog>
     <img class="bg_bottom" src="../assets/bg_bottom.png"/>
     <img class="bg_bottom2" src="../assets/bg_bottom2.png"/>
   </div>
@@ -85,8 +56,7 @@
   .container {
     border: 1px solid #ededed;
     width: 100%;
-/*    background: linear-gradient(#4c4c4c, #7f7f7f);*/
-    background: #6d9df9;
+    background: linear-gradient(#1f68f6, #6d9df9);
     background-size: 100% 100%;
     min-height: 100vh;
   }
@@ -97,6 +67,7 @@
   }
 
   .choice p{
+    cursor:pointer;
     display: inline-block;
     width: 173px;
     height: 30px;
@@ -126,7 +97,6 @@
     width: 450px;
     position: relative;
     top: 14px;
-    left: -14px;
     padding: 14px ;
   }
 
