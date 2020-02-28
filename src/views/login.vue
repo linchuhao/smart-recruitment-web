@@ -37,7 +37,8 @@
   .container {
     width: 100%;
     border: 1px solid #ededed;
-    background: linear-gradient(#4c4c4c, #7f7f7f);
+    /*background: linear-gradient(#4c4c4c, #7f7f7f);*/
+    background: #6d9df9;
     background-size: 100% 100%;
     min-height: 100vh;
   }
@@ -155,9 +156,11 @@ import api from '../api/index'
                   if (res.data.success) {
                     sessionStorage.setItem('userId', res.data.data.userId)
                     if (res.data.data.role === 1) {
-                      this.$router.push({name: 'userInfo', params: {refresh: 1}})
+                      // 用户页面to do 暂时先跳转到首页
+                      this.$router.push({name: 'index', params: {refresh: 1}})
                     } else {
-                      this.$router.push({name: 'hrView', params: {hrRefresh: 2}})
+                      // HR页面to do 暂时先跳转到首页
+                      this.$router.push({name: 'index', params: {hrRefresh: 2}})
                     }
                   } else {
                     this.$message({

@@ -117,16 +117,15 @@
   </div>
   <div class="newsContain">
     <div class="temp">
-    <div class="newsItem"  v-for = "(item, key) in jobList" :key = "key" @click="jobDetail(item.recruit.id)">
+    <div class="newsItem"  v-for = "(item, key) in jobList" :key = "key" @click="jobDetail(item.id)">
       <div class="picContain" ontouchstart="this.classList.toggle('hover');">
         <div class="flipper">
-      <span class="itemPic">{{item.company.name}}</span>
-      <span class="back">{{item.company.createTime}}</span>
+      <span class="itemPic">{{item.name}}</span>
+      <span class="back">{{item.createTime}}</span>
         </div>
     </div>
     <div>
-      <p>{{item.recruit.title}}</p>
-      <p style="margin-top:25px">{{item.recruit.content}}</p>
+      <p  v-html="item.content">{{item.content}}</p>
       </div>
     </div>
     </div>
@@ -136,14 +135,14 @@
     <div id="aboutusInfo">
     <h2>关于我们</h2>
     <p>面向互联网求职招聘，提供更多的实习和工作机会</p>
-    <p>即刻起，点赞你的生活，从这一份工作开始。</p>
+    <p>即刻起，点亮你的生活，从这一份工作开始。</p>
     </div>
   </div>
   <div class="division"><h3>联系我们</h3>
     <h3 style="color: #888;font-weight: 400">--- CONTACT ---</h3></div>
   <div class="footer">
     <a href="https://github.com/linchuhao"><img src="../assets/github4.png"><span>https://github.com/linchuhao</span></a>
-    <a href="https://github.com/stalary"><img src="../assets/images.png"><span>370356141@qq.com</span></a>
+    <a><img src="../assets/images.png"><span>370356141@qq.com</span></a>
   </div>
 </div>
 </template>
@@ -190,7 +189,7 @@ body {
 }
 
 .picContain, .itemPic, .back{
-  width: 80px;
+  width: 180px;
   height: 80px;
 }
 
@@ -205,11 +204,12 @@ body {
   justify-content: flex-start;
   width: 1200px;
   margin: auto;
-  height: 114px;
+  height: 124px;
   text-align: left;
   color: #5a5a5a;
   font-weight: 500;
   padding-top: 15px;
+  padding-bottom: 15px;
   border-bottom: 1px solid #ededed;
 }
 
@@ -325,7 +325,6 @@ body {
 
 .footer img{
   width:25px;
-  height: 25px;
   margin-right: 10px
 }
 
@@ -414,7 +413,52 @@ export default {
       currentDate: '完美',
       company: '',
       enterpriseList: [],
-      jobList: [],
+      jobList: [
+        {
+          id: '10010',
+          name: 'Java后端开发工程师',
+          createTime: '工资：12K-18K',
+          content: '<p>任职要求：</p>' +
+            '<p>1.计算机类、信息系统类相关专业；</p>' +
+            '<p>2.熟悉Java常见web开发框架，如Spring、Mybatis；</p>' +
+            '<p>3.熟悉常见数据Oracle、MySQL的开发；</p>' +
+            '<p>4.熟悉Spring Boot,Spring Cloud等微服务框架的开发；</p>',
+          title: 'test title'
+        },
+        {
+          id: '10011',
+          name: 'Python大数据分析师',
+          createTime: '工资：12K-16K',
+          content: '<p>任职要求：</p>' +
+            '<p>1.计算机类、数学统计类相关专业；</p>' +
+            '<p>2.有大数据处理工具如spark/beam/hive/hbase的使用经验，能够使用大数据处理工具快去构建ETL，特征提取，实时数据分析流水线</p>' +
+            '<p>3.后台服务开发经验，熟练掌握Python/Golang语言；</p>' +
+            '<p>4.了解NLP算法；</p>',
+          title: 'test title'
+        },
+        {
+          id: '10012',
+          name: '产品经理',
+          createTime: '工资：14K-20K',
+          content: '<p>任职要求：</p>' +
+            '<p>1.计算机类、心理学类相关专业；</p>' +
+            '<p>2.洞察用户需求，关注技术的落地及应用</p>' +
+            '<p>3.可独立完成较复杂类产品的相关调研、设计、数据分析与优化工作，高质量完成项目循环和迭代，并梳理沉淀相关经验方法；</p>' +
+            '<p>4. 有较强的逻辑思考能力、学习能力、沟通协调和抗压能力，有创新精神；</p>',
+          title: 'test title'
+        },
+        {
+          id: '10013',
+          name: 'Web前端开发工程师',
+          createTime: '工资：10K-14K',
+          content: '<p>任职要求：</p>' +
+            '<p>1.计算机类、数学统计类相关专业；</p>' +
+            '<p>2.精通Javascript，包括基本对象及操作、DOM操作、事件、Ajax、错误处理、兼容性、ES5/6等内容；</p>' +
+            '<p>3.深刻理解Web标准，对语义化、可用性、可访问性等相关知识有实际的了解和实践经验；</p>' +
+            '<p>4.掌握HTTP及相关网络协议，熟悉跨终端、跨浏览器的开发模式和平台特性；</p>',
+          title: 'test title'
+        }
+      ],
       recommandList: [],
       isHr: localStorage.getItem('role') === '1',
       isLogin: !!localStorage.getItem('token'),

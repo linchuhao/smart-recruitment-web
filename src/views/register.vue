@@ -32,9 +32,9 @@
       </el-form>
       <div class="introduceCompany">
         <img src="../assets/logo.png" @click="toIndex"/>
-        <p>Job-hunting and recruitment oriented to the Internet,
+<!--        <p>Job-hunting and recruitment oriented to the Internet,
           providing more internship and job opportunities
-          From now on, thumb up your life, start with this job.</p>
+          From now on, thumb up your life, start with this job.</p>-->
       </div>
       <div class="footer-tip3" @click="toLogin">
         已有账号?直接登录
@@ -85,7 +85,8 @@
   .container {
     border: 1px solid #ededed;
     width: 100%;
-    background: linear-gradient(#4c4c4c, #7f7f7f);
+/*    background: linear-gradient(#4c4c4c, #7f7f7f);*/
+    background: #6d9df9;
     background-size: 100% 100%;
     min-height: 100vh;
   }
@@ -122,11 +123,11 @@
   }
 
   .hrruleForm {
-    width: 500px;
+    width: 450px;
     position: relative;
     top: 14px;
     left: -14px;
-    padding: 14px 14px 14px 100px;
+    padding: 14px ;
   }
 
   .choose {
@@ -172,14 +173,14 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 320px;
+    width: 350px;
     height: 600px;
     padding: 30px 30px 0 0;
   }
 
   .introduceCompany img {
-    width: 300px;
-    height: 300px;;
+    width: 350px;
+    height: 420px;;
     margin-bottom: 20px;
     cursor: pointer;
   }
