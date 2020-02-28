@@ -237,7 +237,7 @@ body {
 .footer {
   width: 100%;
   height: 100px;
-  background: #5788f9;
+  background: #3f7cf9;
   padding-top:20px;
 }
 

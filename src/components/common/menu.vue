@@ -62,7 +62,7 @@
     width: 100%;
     height: 60px;
 /*    background: rgba(0,0,0,0.8);*/
-    background: rgba(31, 104, 246, 0.8);
+    background: rgba(0, 95, 246, 0.8);
   }
   .contain {
     display: flex;
