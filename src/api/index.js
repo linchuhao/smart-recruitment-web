@@ -23,6 +23,10 @@ export default {
   getHotEnterprise () {
     return axios.get('/api/enterprise/getHotEnterprise', {headers: headers})
   },
+  // 获取热门职位信息
+  getHotJob () {
+    return axios.get('/api/job/getHotJob', {headers: headers})
+  },
   getComName () {
     return host + '/company/noPage'
   },
