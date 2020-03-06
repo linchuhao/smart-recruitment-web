@@ -6,6 +6,8 @@ import index from '../views/index.vue'
 Vue.use(Router)
 const register = resolve => require(['../views/register.vue'], resolve)
 const login = resolve => require(['../views/login.vue'], resolve)
+const userInfo = resolve => require(['../views/userInfo.vue'], resolve)
+const hrUserInfo = resolve => require(['../views/hrViews/userInfo.vue'], resolve)
 export default new Router({
   routes: [
     {
@@ -16,6 +18,28 @@ export default new Router({
           path: '/',
           name: 'index',
           component: index
+        }
+      ]
+    },
+    {
+      path: '/userInfo',
+      component: CommonPage,
+      children: [
+        {
+          path: '/',
+          name: 'userInfo',
+          component: userInfo
+        }
+      ]
+    },
+    {
+      path: '/hrView',
+      component: CommonPage,
+      children: [
+        {
+          path: '/',
+          name: 'hrView',
+          component: hrUserInfo
         }
       ]
     },
