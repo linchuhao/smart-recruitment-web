@@ -9,14 +9,16 @@
     </el-carousel>
 </div>
   </div>
-  <div class="division"><h3>热门企业</h3>
-                        <h3 style="color: #888;font-weight: 400">--- Hot ---</h3></div>
-  <div class="cardContain">
-<div class="wrapper-card">
-  <div class="card" v-for="(item, key) in enterpriseList" :key="key">
-    <img :src="item.enterpriseLogo" class="image" @click="getCompanyDetail(item.id)">
+  <div class="division">
+    <h3>热门企业</h3>
+    <h3 style="color: #888;font-weight: 400">--- Hot ---</h3>
   </div>
-</div>
+  <div class="cardContain">
+    <div class="wrapper-card">
+      <div class="card" v-for="(item, key) in enterpriseList" :key="key">
+        <img :src="item.enterpriseLogo" class="image" @click="getCompanyDetail(item.id)">
+      </div>
+    </div>
   </div>
   <!--推荐-->
   <div class="division" v-if="isLogin">
