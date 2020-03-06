@@ -7,10 +7,6 @@ export default {
   getCompany () {
     return host + '/company'
   },
-  // 测试注册
-  userRegisterTest (user) {
-    return axios.post('/api/userTest/regist', JSON.stringify(user), {headers: headers})
-  },
   // 用户注册
   userRegister (userInfo) {
     return axios.post('/api/user/register', JSON.stringify(userInfo), {headers: headers})
