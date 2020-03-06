@@ -192,7 +192,7 @@ export default {
     }
   },
   created () {
-    this.initWs()
+    /*    this.initWs() */
   },
   watch: {
     amount () {
@@ -203,12 +203,13 @@ export default {
     if (sessionStorage.getItem('userId')) {
       this.isShow = false
     }
-    if (localStorage.getItem('role') === '1') {
+    // role===2 为HR
+    if (sessionStorage.getItem('role') === '2') {
       this.isHr = true
     }
   },
   methods: {
-    initWs () {
+    /*    initWs () {
       if (sessionStorage.getItem('userId') !== null) {
         if ('WebSocket' in window) {
           this.websocket = new WebSocket('ws://pf.stalary.com/push/ws/' + `${sessionStorage.getItem('userId')}`, [])
@@ -229,7 +230,7 @@ export default {
     },
     closeWS (e) {
       console.log('关闭连接')
-    },
+    }, */
     redirect (num) {
       if (num === 1) {
         this.$router.push({name: 'index'})
@@ -255,7 +256,7 @@ export default {
       this.$router.push({name: 'search', params: {count: 1}})
     },
     logout () {
-      fetch
+      /*      fetch
         .logout()
         .then(res => {
           if (res.status === 200) {
@@ -273,7 +274,10 @@ export default {
         })
         .catch(e => {
           console.log(e)
-        })
+        }) */
+      sessionStorage.removeItem('userId')
+      sessionStorage.removeItem('role')
+      location.reload()
     },
     addjob (formName) {
       this.publishvisible = false
