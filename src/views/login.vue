@@ -155,11 +155,20 @@ import api from '../api/index'
                 if (res.status === 200) {
                   if (res.data.success) {
                     sessionStorage.setItem('userId', res.data.data.userId)
+                    sessionStorage.setItem('role', res.data.data.role)
                     if (res.data.data.role === 1) {
                       // 用户页面to do 暂时先跳转到首页
+                      console.log('user page')
                       this.$router.push({name: 'index', params: {refresh: 1}})
-                    } else {
+                    }
+                    if (res.data.data.role === 2) {
                       // HR页面to do 暂时先跳转到首页
+                      console.log('hr page')
+                      this.$router.push({name: 'index', params: {hrRefresh: 2}})
+                    }
+                    if (res.data.data.role === 3) {
+                      // 管理员页面to do 暂时先跳转到首页
+                      console.log('admin page')
                       this.$router.push({name: 'index', params: {hrRefresh: 2}})
                     }
                   } else {
