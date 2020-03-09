@@ -20,7 +20,7 @@
       <el-tabs type="border-card" tabPosition="left" style="width:1000px;height: 100vh;margin: 14px auto auto auto;position: sticky">
         <el-tab-pane>
           <span slot="label">个人信息<i class="el-icon-arrow-right"></i></span>
-          <user :list="list" :imageUrl="imageUrl" class="user"></user>
+          <user :list="list"></user>
         </el-tab-pane>
         <el-tab-pane>
           <span slot="label">我的简历<i class="el-icon-arrow-right"></i></span>
@@ -85,7 +85,7 @@
 
 <script>/* eslint-disable indent */
 
-  import fetch from '../api/fetch'
+  import api from '../api/index'
   import Info from '../components/userInfo'
   import Resume from '../components/resume'
   import Delivery from '../components/delivery'
@@ -96,16 +96,21 @@
       return {
         activeIndex2: '1',
         btnText: '取消',
+        userId: sessionStorage.getItem('userId'),
         list: {
-          nickname: '',
-          sex: '',
-          address: '',
-          introduce: '',
-          endTime: '',
-          education: '',
-          school: '',
-          intentionCompany: '',
-          intentionJob: ''
+          'applicantInfoAddress': '',
+          'applicantInfoEducation': '',
+          'applicantInfoEmail': '',
+          'applicantInfoId': sessionStorage.getItem('userId'),
+          'applicantInfoImg': '',
+          'applicantInfoIntroduction': '',
+          'applicantInfoName': '',
+          'applicantInfoPhone': '',
+          'applicantInfoProperty': '',
+          'applicantInfoResume': '',
+          'applicantInfoSalary': '',
+          'applicantInfoSchool': '',
+          'applicantInfoSex': ''
         },
         imageUrl: '',
         head: {},
@@ -118,10 +123,10 @@
       }
     },
     mounted () {
-      this.head = {
+/*      this.head = {
         ContentType: 'application/json',
         Authorization: 'Basic ' + localStorage.getItem('token')
-      }
+      } */
       this.getUserInfo()
       this.refresh = this.$route.params.refresh !== undefined ? this.$route.params.refresh : 0
     },
@@ -138,14 +143,14 @@
     },
     methods: {
       getUserInfo () {
-        fetch
-          .getUserInfo()
-          .then(res => {
-            this.list = res.data.data !== null ? res.data.data : this.list
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        api.getApplicantInfo(this.userId).then(res => {
+          if (res.status === 200) {
+            this.list = res.data
+            console.log(this.list)
+          }
+        }).catch(e => {
+          console.log(e)
+        })
       },
       handleAvatarSuccess (res, file) {
         this.imageUrl = URL.createObjectURL(file.raw)

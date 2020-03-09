@@ -15,6 +15,14 @@ export default {
   userLogin (userInfo) {
     return axios.post('/api/user/login', JSON.stringify(userInfo), {headers: headers})
   },
+  // 获取应聘者信息
+  getApplicantInfo (userId) {
+    return axios.get('/api/applicant/getApplicantInfo', {params: {userId: userId}}, {headers: headers})
+  },
+  // 更改应聘者信息
+  updateApplicantInfo (applicantInfo) {
+    return axios.post('/api/applicant/updateApplicantInfo', JSON.stringify(applicantInfo), {headers: headers})
+  },
   // 获取热门企业信息
   getHotEnterprise () {
     return axios.get('/api/enterprise/getHotEnterprise', {headers: headers})

@@ -430,8 +430,8 @@ export default {
     }
   },
   mounted () {
-    let userId = sessionStorage.getItem('userId')
-    this.getResume(userId)
+/*    let userId = sessionStorage.getItem('userId')
+    this.getResume(userId) */
   },
   watch: {
     tip () {
