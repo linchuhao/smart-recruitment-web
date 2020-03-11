@@ -5,16 +5,17 @@
         <div>
           <el-upload
             class="avatar-uploader"
-            action="http://personfilter.clairezyw.com/user/avatar"
+            action=""
+            :http-request="uploadAvatar"
             name="avatar"
-            :headers="head"
             :show-file-list="false"
-            :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload">
             <img v-if="imageUrl"  class="avatar">
-            <img v-else class="img" :src="setDefault">
+            <img v-else class="img" :src="list.applicantInfoImg">
           </el-upload>
-          <span class="username">{{list ? list.nickname : ''}}</span>
+          <span class="username">
+            {{list ? list.applicantInfoName : ''}}
+          </span>
         </div>
       </el-card>
       <el-tabs type="border-card" tabPosition="left" style="width:1000px;height: 100vh;margin: 14px auto auto auto;position: sticky">
@@ -112,23 +113,13 @@
           'applicantInfoSchool': '',
           'applicantInfoSex': ''
         },
-        imageUrl: '',
-        head: {},
-        refresh: 0
+        imageUrl: ''
       }
     },
     computed: {
-      setDefault () {
-        return this.list.avatar ? this.list.avatar : 'https://upload-images.jianshu.io/upload_images/9381131-a48cdb07b37dcff1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'
-      }
     },
     mounted () {
-/*      this.head = {
-        ContentType: 'application/json',
-        Authorization: 'Basic ' + localStorage.getItem('token')
-      } */
       this.getUserInfo()
-      this.refresh = this.$route.params.refresh !== undefined ? this.$route.params.refresh : 0
     },
     watch: {
       refresh () {
@@ -152,8 +143,16 @@
           console.log(e)
         })
       },
-      handleAvatarSuccess (res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw)
+      uploadAvatar (file) {
+        let formData = new FormData()
+        formData.append('avatar', file.file)
+        api.uploadApplicantInfoAvatar(formData, this.userId).then(res => {
+          if (res.status === 200) {
+            this.list.applicantInfoImg = URL.createObjectURL(file.file)
+          }
+        }).catch(e => {
+          console.log(e)
+        })
       },
       beforeAvatarUpload (file) {
         const isJPG = file.type === 'image/jpeg'

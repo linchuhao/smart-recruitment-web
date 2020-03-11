@@ -15,6 +15,10 @@ export default {
   userLogin (userInfo) {
     return axios.post('/api/user/login', JSON.stringify(userInfo), {headers: headers})
   },
+  // 获取应聘者头像
+  uploadApplicantInfoAvatar (file, userId) {
+    return axios.post('/api/applicant/uploadApplicantInfoAvatar', file, {headers: headers, params: {userId: userId}})
+  },
   // 获取应聘者信息
   getApplicantInfo (userId) {
     return axios.get('/api/applicant/getApplicantInfo', {params: {userId: userId}}, {headers: headers})

@@ -72,16 +72,6 @@
       <el-form-item label="学校" prop="applicantInfoSchool">
         <el-input v-model="list.applicantInfoSchool"></el-input>
       </el-form-item>
-<!--      <el-form-item label="感兴趣的工作" prop="intentionJob">
-        <el-select v-model="intentionJob" multiple placeholder="请选择" style="width: 100%">
-          <el-option
-            v-for="item in jobOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-       </el-select>
-      </el-form-item>-->
       <el-form-item>
         <el-button class='editor' @click="changeEdit">返回</el-button>
         <el-button  @click="submitInfo('list')">提交</el-button>
@@ -196,8 +186,6 @@
       }
     },
     mounted () {
-/*      this.getCompanyName()
-      this.getJobName() */
     },
     methods: {
       changeEdit () {
