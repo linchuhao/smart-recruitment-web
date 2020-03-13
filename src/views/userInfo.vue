@@ -21,11 +21,12 @@
       <el-tabs type="border-card" tabPosition="left" style="width:1000px;height: 100vh;margin: 14px auto auto auto;position: sticky">
         <el-tab-pane>
           <span slot="label">个人信息<i class="el-icon-arrow-right"></i></span>
-          <user :list="list"></user>
+          <user :list="list"/>
         </el-tab-pane>
         <el-tab-pane>
           <span slot="label">我的简历<i class="el-icon-arrow-right"></i></span>
-          <my-resume></my-resume>
+          <my-resume :applicantInfoResume="list.applicantInfoResume"
+                     @dataChange="dataChange"/>
         </el-tab-pane>
         <el-tab-pane>
           <span slot="label">投递记录<i class="el-icon-arrow-right"></i></span>
@@ -95,8 +96,6 @@
   export default {
     data () {
       return {
-        activeIndex2: '1',
-        btnText: '取消',
         userId: sessionStorage.getItem('userId'),
         list: {
           'applicantInfoAddress': '',
@@ -118,7 +117,7 @@
     },
     computed: {
     },
-    mounted () {
+    created () {
       this.getUserInfo()
     },
     watch: {
@@ -148,6 +147,7 @@
         formData.append('avatar', file.file)
         api.uploadApplicantInfoAvatar(formData, this.userId).then(res => {
           if (res.status === 200) {
+            this.$message.success('上传成功')
             this.list.applicantInfoImg = URL.createObjectURL(file.file)
           }
         }).catch(e => {
@@ -165,6 +165,14 @@
           this.$message.error('上传头像图片大小不能超过 2MB!')
         }
         return isJPG && isLt2M
+      },
+      /**
+       * 父组件处理子组件发送的数据更改
+       * @param params
+       */
+      dataChange (params) {
+        console.log(params)
+        this.list.applicantInfoResume = params
       }
     }
   }
