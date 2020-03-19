@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-import fetch from '../../api/fetch'
 export default {
   data () {
     return {
@@ -34,7 +33,7 @@ export default {
       this.$router.push({name: 'jobInfo'})
     },
     checkJob () {
-      fetch.checkJob().then(res => {
+      /*      fetch.checkJob().then(res => {
         if (res.status === 200) {
           this.joblist = res.data.data
           if (this.joblist.length === 0) {
@@ -43,10 +42,10 @@ export default {
         }
       }).catch(e => {
         console.log(e)
-      })
+      }) */
     },
     deletejob (id) {
-      fetch.deletejob(id).then(res => {
+      /*      fetch.deletejob(id).then(res => {
         if (res.status === 200) {
           if (res.data.success === true) {
             this.count++
@@ -54,7 +53,7 @@ export default {
         }
       }).catch(e => {
         console.log(e)
-      })
+      }) */
     }
   }
 }

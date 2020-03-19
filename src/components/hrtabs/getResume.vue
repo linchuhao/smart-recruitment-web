@@ -140,7 +140,6 @@
 </style>
 
 <script>
-import fetch from '../../api/fetch'
 
 export default {
   data () {
@@ -175,17 +174,17 @@ export default {
   },
   methods: {
     getList () {
-      fetch.receiveResume().then(res => {
+      /*      fetch.receiveResume().then(res => {
         this.list = res.data.data.receiveList
         if (this.list.length === 0) {
           this.show = true
         }
       }).catch(e => {
         console.log(e)
-      })
+      }) */
     },
     getTableList (id) {
-      this.getResumev = true
+      /*      this.getResumev = true
       fetch
         .getResume(id)
         .then(res => {
@@ -199,7 +198,7 @@ export default {
         })
         .catch(e => {
           console.log(e)
-        })
+        }) */
     }
   }
 }

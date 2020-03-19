@@ -50,7 +50,6 @@
 </style>
 
 <script>
-import fetch from '../api/fetch'
 
 export default {
   data () {
@@ -68,7 +67,7 @@ export default {
       this.$router.push({name: 'jobInfo'})
     },
     getList () {
-      fetch
+      /*      fetch
         .deliveryList()
         .then(res => {
           if (res.status === 200) {
@@ -81,7 +80,7 @@ export default {
         })
         .catch(e => {
           console.log(e)
-        })
+        }) */
     }
   }
 }

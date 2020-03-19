@@ -21,7 +21,7 @@
       <el-tabs type="border-card" tabPosition="left" style="width:1000px;height: 100vh;margin: 14px auto auto auto;position: sticky">
         <el-tab-pane>
           <span slot="label">个人信息<i class="el-icon-arrow-right"></i></span>
-          <user :list="list"/>
+          <applicantInfo :list="list"/>
         </el-tab-pane>
         <el-tab-pane>
           <span slot="label">我的简历<i class="el-icon-arrow-right"></i></span>
@@ -88,7 +88,7 @@
 <script>/* eslint-disable indent */
 
   import api from '../api/index'
-  import Info from '../components/userInfo'
+  import applicantInfo from '../components/applicantInfo'
   import Resume from '../components/resume'
   import Delivery from '../components/delivery'
   import Setting from '../components/setting'
@@ -126,7 +126,7 @@
       }
     },
     components: {
-      user: Info,
+      applicantInfo: applicantInfo,
       myResume: Resume,
       delivery: Delivery,
       setting: Setting

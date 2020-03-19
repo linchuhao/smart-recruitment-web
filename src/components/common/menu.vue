@@ -4,18 +4,18 @@
       <div>
         <span @click="redirect(1)" class="tab">首页</span>
         <span v-if="isHr" @click="changeStatus" class="tab">发布职位</span>
-        <span v-if="isHr && !isShow" @click="redirect(6)" class="tab">个人中心</span>
-        <span @click="redirect(2)" class="tab" v-if="!isHr && !isShow">个人中心</span>
+        <span v-if="isHr && isLogin" @click="redirect(6)" class="tab">个人中心</span>
+        <span v-if="!isHr && isLogin" @click="redirect(2)" class="tab">个人中心</span>
         <span class="tab" v-if="!isHr"><el-input placeholder="搜索心仪的职位" style="width:18rem" v-model="content"
                                                  @change="getJob(content)"><i slot="prefix"
                                                                               class="el-input__icon el-icon-search"></i></el-input></span>
       </div>
       <div>
-        <span @click="redirect(3)" class="tab" v-show="!isShow">
+        <span @click="redirect(3)" class="tab" v-show="isLogin">
           <i class="el-icon-message" style="margin-right:0.3rem" @click="redirect(5)">
             </i>消息中心<span class="icon" v-show="count > 0" ref="icon">{{ count }}</span>
           </span>
-        <span v-if="isShow">
+        <span v-if="!isLogin">
           <span class="tab" @click="redirect(4)">登录</span>
           <span class="tab"  @click="toregister">注册</span>
         </span>
@@ -45,7 +45,7 @@
             </el-form-item>
           </el-form>
         </el-dialog>
-        <span v-if="!isShow" class="tab" @click="logout()" >退出登录</span>
+        <span v-if="isLogin" class="tab" @click="logout()" >退出登录</span>
       </div>
     </div>
   </header>
@@ -183,7 +183,7 @@ export default {
       content: '',
       companyList: [],
       msg: '',
-      isShow: true,
+      isLogin: false,
       publishRules: {
         title: [{validator: checktitle, trigger: 'blur'}],
         content: [{validator: checkintroduce, trigger: 'blur'}],
@@ -201,7 +201,7 @@ export default {
   },
   mounted () {
     if (sessionStorage.getItem('userId')) {
-      this.isShow = false
+      this.isLogin = true
     }
     // role===2 为HR
     if (sessionStorage.getItem('role') === '2') {
