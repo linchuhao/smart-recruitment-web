@@ -31,6 +31,18 @@ export default {
   updateApplicantInfo (applicantInfo) {
     return axios.post('/api/applicant/updateApplicantInfo', JSON.stringify(applicantInfo), {headers: headers})
   },
+  // 获取HR信息
+  getHrInfo (userId) {
+    return axios.get('/api/hr/getHrInfo', {params: {userId: userId}}, {headers: headers})
+  },
+  // 更改HR信息
+  updateHrInfo (hrInfo) {
+    return axios.post('/api/hr/updateHrInfo', JSON.stringify(hrInfo), {headers: headers})
+  },
+  // 上传HR头像
+  uploadHrInfoAvatar (file, userId) {
+    return axios.post('/api/hr/uploadHrInfoAvatar', file, {headers: headers, params: {userId: userId}})
+  },
   // 获取热门企业信息
   getHotEnterprise () {
     return axios.get('/api/enterprise/getHotEnterprise', {headers: headers})
