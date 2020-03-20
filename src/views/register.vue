@@ -273,7 +273,7 @@ export default {
     hrSubmit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid && !this.tipsShow) {
-          let result = {
+          let userInfo = {
             email: this.hrInfo.email,
             password: this.hrInfo.password,
             phone: this.hrInfo.phone,
@@ -282,12 +282,11 @@ export default {
           }
           // hr注册
           if (this.isHr) {
-            result.role = 2
-            result.enterpriseName = this.hrInfo.enterpriseName
-            console.log(result)
+            userInfo.role = 2
+            userInfo.enterpriseName = this.hrInfo.enterpriseName
             // 用户注册
             api
-              .userRegister(result)
+              .userRegister(userInfo)
               .then(res => {
                 if (res.status === 200) {
                   if (res.data.success) {
@@ -295,6 +294,7 @@ export default {
                       message: "注册成功",
                       type: "success"
                     })
+                    this.registerSuccessToIndex(res)
                   }
                   else {
                     this.$message({
@@ -307,10 +307,9 @@ export default {
               console.log(e)
             })
           } else {
-            console.log(result)
             // 用户注册
             api
-              .userRegister(result)
+              .userRegister(userInfo)
             .then(res => {
               if (res.status === 200) {
                 if (res.data.success) {
@@ -318,6 +317,7 @@ export default {
                     message: "注册成功",
                     type: "success"
                   })
+                  this.registerSuccessToIndex(res)
                 }
                 else {
                   this.$message({
@@ -389,6 +389,11 @@ export default {
       this.isHr = isHr
     },
     toIndex() {
+      this.$router.push({name: 'index'})
+    },
+    registerSuccessToIndex(res) {
+      sessionStorage.setItem('userId', res.data.data.userId)
+      sessionStorage.setItem('role', res.data.data.role)
       this.$router.push({name: 'index'})
     }
   }
