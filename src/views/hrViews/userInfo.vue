@@ -28,7 +28,7 @@
     </el-tab-pane>
      <el-tab-pane>
       <span slot="label">投递记录<i class="el-icon-arrow-right"></i></span>
-     <receive></receive>
+       <receive :receiveRecord="receiveRecord"/>
     </el-tab-pane>
      <el-tab-pane >
       <span slot="label">设置<i class="el-icon-arrow-right"></i></span>
@@ -62,7 +62,8 @@ export default {
         'hrInfoProperty': '',
         'hrInfoSchool': '',
         'hrInfoSex': ''
-      }
+      },
+      receiveRecord: []
     }
   },
   components: {
@@ -75,6 +76,7 @@ export default {
   },
   created () {
     this.getHrInfo()
+    this.getReceiveRecord()
   },
   watch: {
     hrRefresh () {
@@ -87,6 +89,17 @@ export default {
         if (res.status === 200) {
           this.list = res.data
           console.log(this.list)
+        }
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    getReceiveRecord () {
+      api.getReceiveRecord(this.userId).then(res => {
+        if (res.status === 200) {
+          this.receiveRecord = res.data.data
+          console.log('getReceiveRecord')
+          console.log(this.receiveRecord)
         }
       }).catch(e => {
         console.log(e)

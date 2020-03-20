@@ -1,19 +1,38 @@
 <template>
   <div class="getResumeWrap">
-    <div v-if="show" class="nofind">
+    <div v-if="!this.receiveRecord" class="nofond">
       <img
-        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524746733938&di=9ae24b5205e97c2876b48d3ff26f1c23&imgtype=0&src=http%3A%2F%2Fwww.snlfjx.com%2Fforum%2FSkin%2Fimgs%2Fno-data.png" style="margin: 0 auto">
+        src="static/img/notFound.png">
       <p>暂时没有记录哦</p>
     </div>
-    <div v-for="(item, index) in list" :key="index" v-if="!show">
+    <el-row v-if="receiveRecord">
+      <el-col :span="6"><div class="grid-content ">岗位</div></el-col>
+      <el-col :span="3"><div class="grid-content ">姓名</div></el-col>
+      <el-col :span="6"><div class="grid-content ">学校</div></el-col>
+      <el-col :span="2"><div class="grid-content ">学历</div></el-col>
+      <el-col :span="2"><div class="grid-content ">简历</div></el-col>
+      <el-col :span="5"><div class="grid-content ">日期</div></el-col>
+    </el-row>
+    <div v-for="item in receiveRecord" v-bind:key="item.id" v-if="receiveRecord">
+      <el-row>
+        <el-col :span="6"><div class="grid-content bg-purple">{{item.jobName}}</div></el-col>
+        <el-col :span="3"><div class="grid-content bg-purple-light">{{item.applicantInfoName}}</div></el-col>
+        <el-col :span="6"><div class="grid-content bg-purple">{{item.applicantInfoSchool}}</div></el-col>
+        <el-col :span="2"><div class="grid-content bg-purple-light">{{item.applicantInfoEducation}}</div></el-col>
+        <el-col :span="2"><div class="checkResume bg-purple" @click="openResume(item.applicantInfoResume)">查看</div></el-col>
+        <el-col :span="5"><div class="grid-content bg-purple-light">{{item.deliveryDatetime}}</div></el-col>
+      </el-row>
+    </div>
+  </div>
+<!--    <div v-for="(item, index) in receiveRecord" :key="index" v-if="this.receiveRecord">
       <el-card shadow="hover" class="receiveBox">
         <div class="flex">
           <el-progress :width="80" type="circle" :percentage="item.rate" color="#A6F6AF" class="circle"></el-progress>
           <span class="pipei">简历匹配度</span>
-          <p class="receiveInfo">收到{{item.name}}的{{item.title}}求职信息</p>
-          <el-button @click="getTableList(item.userId)" class="clickbtn">查看</el-button>
+          <p class="receiveInfo">收到{{item.applicantInfoName}}的{{item.jobName}}求职信息</p>
+          <el-button @click="getTableList(item.applicantInfoName)" class="clickbtn">查看</el-button>
         </div>
-        <p class="receive">{{item.time}}</p>
+        <p class="receive">{{item.deliveryDatetime}}</p>
       </el-card>
       <el-dialog :title="getResumeList.name+'的简历'" :visible.sync="getResumev">
         <table border="1" cellspacing="0" style="border-color:#ededed" class="mytable">
@@ -75,7 +94,7 @@
         </table>
       </el-dialog>
     </div>
-  </div>
+  </div>-->
 </template>
 <style>
   .getResumeWrap {
@@ -127,21 +146,42 @@
     width: 100%;
   }
 
-  .nofind p {
-    font-size: 18px;
+  .nofond p {
+    font-size: 28px;
     color: #909399;
+    text-align: center;
   }
 
-  .nofind img {
+  .nofond img {
     width: 350px;
-    height: 280px;
-    margin: 28px 28rem auto auto;
+    height: 300px;
   }
+
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    height: 36px;
+    margin: 2px;
+    padding: 10px;
+  }
+
+  .checkResume {
+    height: 36px;
+    margin: 2px;
+    padding: 10px;
+    cursor:pointer;
+  }
+
 </style>
 
 <script>
 
 export default {
+  props: ['receiveRecord'],
   data () {
     return {
       getResumeList: {
@@ -165,7 +205,7 @@ export default {
         avatar: ''
       },
       list: [],
-      show: false,
+      show: true,
       getResumev: false
     }
   },
@@ -173,6 +213,10 @@ export default {
     this.getList()
   },
   methods: {
+    openResume (resume) {
+      console.log('查看简历' + resume)
+      window.open(resume)
+    },
     getList () {
       /*      fetch.receiveResume().then(res => {
         this.list = res.data.data.receiveList
