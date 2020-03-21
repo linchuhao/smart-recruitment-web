@@ -100,6 +100,7 @@
         list: {
           'applicantInfoAddress': '',
           'applicantInfoEducation': '',
+          'applicantInfoMajor': '',
           'applicantInfoEmail': '',
           'applicantInfoId': sessionStorage.getItem('userId'),
           'applicantInfoImg': '',

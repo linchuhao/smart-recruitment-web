@@ -38,6 +38,10 @@
         <td>学校：</td>
         <td>{{list.applicantInfoSchool}}</td>
       </tr>
+      <tr>
+        <td>专业：</td>
+        <td>{{list.applicantInfoMajor}}</td>
+      </tr>
       <el-button class="edit" @click="changeEdit">编辑</el-button>
     </table>
     <el-form  :model="list" status-icon :rules="rules2" ref="list" label-width="100px" class="formWrap"
@@ -47,6 +51,9 @@
       </el-form-item>
       <el-form-item label="职位" prop="applicantInfoProperty">
         <el-input v-model="list.applicantInfoProperty" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="专业" prop="applicantInfoMajor">
+        <el-input v-model="list.applicantInfoMajor" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="手机号码" prop="applicantInfoPhone">
         <el-input v-model="list.applicantInfoPhone" auto-complete="off"></el-input>
@@ -71,6 +78,9 @@
       </el-form-item>
       <el-form-item label="学校" prop="applicantInfoSchool">
         <el-input v-model="list.applicantInfoSchool"></el-input>
+      </el-form-item>
+      <el-form-item label="专业" prop="applicantInfoMajor">
+        <el-input v-model="list.applicantInfoMajor" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button class='editor' @click="changeEdit">返回</el-button>
@@ -117,6 +127,13 @@
       var checkProperty = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('职位不能为空'))
+        } else {
+          callback()
+        }
+      }
+      var checkMajor = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('专业不能为空'))
         } else {
           callback()
         }
@@ -174,6 +191,7 @@
         isEdit: false,
         rules2: {
           applicantInfoName: [{validator: checkName, trigger: 'blur'}],
+          applicantInfoMajor: [{validator: checkMajor, trigger: 'blur'}],
           applicantInfoPhone: [{validator: checkPhone, trigger: 'blur'}],
           applicantInfoEmail: [{validator: checkEmail, trigger: 'blur'}],
           applicantInfoProperty: [{validator: checkProperty, trigger: 'blur'}],
