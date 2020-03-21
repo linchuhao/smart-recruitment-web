@@ -33,6 +33,10 @@
         </el-col>
       </div>
     </el-card>
+    <div v-if="!applicantInfoResume" class="nofond">
+      <img
+        src="static/img/notFound.png">
+    </div>
   </div>
 </template>
 <style>
@@ -48,6 +52,10 @@
     border: 1px solid #ededed;
     background: #f4f4f4;
     padding: 21px;
+  }
+  .nofond img {
+    width: 350px;
+    height: 300px;
   }
 
 </style>
