@@ -52,9 +52,6 @@
       <el-form-item label="职位" prop="applicantInfoProperty">
         <el-input v-model="list.applicantInfoProperty" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="专业" prop="applicantInfoMajor">
-        <el-input v-model="list.applicantInfoMajor" auto-complete="off"></el-input>
-      </el-form-item>
       <el-form-item label="手机号码" prop="applicantInfoPhone">
         <el-input v-model="list.applicantInfoPhone" auto-complete="off"></el-input>
       </el-form-item>
