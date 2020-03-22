@@ -35,6 +35,10 @@ export default {
   getHrInfo (userId) {
     return axios.get('/api/hr/getHrInfo', {params: {userId: userId}}, {headers: headers})
   },
+  // 获取职位发布记录
+  getJobDeliveryRecord (userId) {
+    return axios.get('/api/hr/getJobDeliveryRecord', {params: {userId: userId}}, {headers: headers})
+  },
   // 获取简历接收记录
   getReceiveRecord (userId) {
     return axios.get('/api/hr/getReceiveRecord', {params: {userId: userId}}, {headers: headers})
