@@ -123,7 +123,7 @@
       <div class="picContain" ontouchstart="this.classList.toggle('hover');">
         <div class="flipper">
       <span class="itemPic">{{item.jobName}}</span>
-      <span class="back">工资：{{item.jobSalary}}</span>
+      <span class="back">工资：{{item.jobMinSalary}}-{{item.jobMaxSalary}}</span>
         </div>
     </div>
     <div>
