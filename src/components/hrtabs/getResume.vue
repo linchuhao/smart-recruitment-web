@@ -11,8 +11,8 @@
       <el-col :span="5"><div class="grid-content ">学校</div></el-col>
       <el-col :span="3"><div class="grid-content ">专业</div></el-col>
       <el-col :span="2"><div class="grid-content ">学历</div></el-col>
-      <el-col :span="2"><div class="grid-content ">简历</div></el-col>
       <el-col :span="5"><div class="grid-content ">日期</div></el-col>
+      <el-col :span="2"><div class="grid-content ">简历</div></el-col>
     </el-row>
     <div v-for="item in receiveRecord" v-bind:key="item.id" v-if="receiveRecord">
       <el-row>
@@ -21,8 +21,8 @@
         <el-col :span="5"><div class="grid-content bg-purple">{{item.applicantInfoSchool}}</div></el-col>
         <el-col :span="3"><div class="grid-content bg-purple-light">{{item.applicantInfoMajor}}</div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">{{item.applicantInfoEducation}}</div></el-col>
-        <el-col :span="2"><div class="checkResume bg-purple-light" @click="openResume(item.applicantInfoResume)">查看</div></el-col>
         <el-col :span="5"><div class="grid-content bg-purple-light">{{item.deliveryDatetime}}</div></el-col>
+        <el-col :span="2"><div class="checkResume bg-purple-light" @click="openResume(item.applicantInfoResume)">查看</div></el-col>
       </el-row>
     </div>
   </div>
@@ -64,6 +64,8 @@
     height: 36px;
     margin: 2px;
     padding: 10px 0 10px 0;
+    background-color: #337ff8;
+    color: #f3f4f5;
     cursor:pointer;
   }
 
