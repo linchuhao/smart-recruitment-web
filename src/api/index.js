@@ -40,8 +40,8 @@ export default {
     return axios.get('/api/hr/getJobDeliveryRecord', {params: {userId: userId}}, {headers: headers})
   },
   // 获取简历接收记录
-  getReceiveRecord (userId) {
-    return axios.get('/api/hr/getReceiveRecord', {params: {userId: userId}}, {headers: headers})
+  getResumeReceiveRecord (userId) {
+    return axios.get('/api/hr/getResumeReceiveRecord', {params: {userId: userId}}, {headers: headers})
   },
   // 更改HR信息
   updateHrInfo (hrInfo) {

@@ -78,7 +78,7 @@ export default {
   created () {
     this.getHrInfo()
     this.getJobDeliveryRecord()
-    this.getReceiveRecord()
+    this.getResumeReceiveRecord()
   },
   watch: {
     hrRefresh () {
@@ -96,8 +96,8 @@ export default {
         console.log(e)
       })
     },
-    getReceiveRecord () {
-      api.getReceiveRecord(this.userId).then(res => {
+    getResumeReceiveRecord () {
+      api.getResumeReceiveRecord(this.userId).then(res => {
         if (res.status === 200) {
           this.receiveRecord = res.data.data
           console.log('getReceiveRecord')
