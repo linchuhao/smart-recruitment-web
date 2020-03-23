@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div v-if="!jobDeliveryRecord" class="nofind">
+    <div v-if="!jobDeliveryRecord" class="noFound">
       <img src="static/img/notFound.png">
       <p>暂时没有发布的职位哦，快去发布吧</p>
     </div>
@@ -62,7 +62,16 @@ export default {
 </script>
 
 <style>
+  .noFound p {
+    font-size: 28px;
+    color: #909399;
+    text-align: center;
+  }
 
+  .noFound img {
+    width: 350px;
+    height: 300px;
+  }
   .editJob {
     height: 36px;
     margin: 2px;
