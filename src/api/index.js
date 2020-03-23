@@ -27,6 +27,10 @@ export default {
   getApplicantInfo (userId) {
     return axios.get('/api/applicant/getApplicantInfo', {params: {userId: userId}}, {headers: headers})
   },
+  // 获取简历投递记录
+  getResumeDeliveryRecord (userId) {
+    return axios.get('/api/applicant/getResumeDeliveryRecord', {params: {userId: userId}}, {headers: headers})
+  },
   // 更改应聘者信息
   updateApplicantInfo (applicantInfo) {
     return axios.post('/api/applicant/updateApplicantInfo', JSON.stringify(applicantInfo), {headers: headers})

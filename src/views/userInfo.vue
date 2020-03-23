@@ -30,7 +30,7 @@
         </el-tab-pane>
         <el-tab-pane>
           <span slot="label">投递记录<i class="el-icon-arrow-right"></i></span>
-          <delivery></delivery>
+          <delivery :resumeDeliveryRecord="resumeDeliveryRecord"></delivery>
         </el-tab-pane>
         <el-tab-pane>
           <span slot="label">设置<i class="el-icon-arrow-right"></i></span>
@@ -113,13 +113,15 @@
           'applicantInfoSchool': '',
           'applicantInfoSex': ''
         },
-        imageUrl: ''
+        imageUrl: '',
+        resumeDeliveryRecord: []
       }
     },
     computed: {
     },
     created () {
       this.getUserInfo()
+      this.getResumeDeliveryRecord()
     },
     watch: {
       refresh () {
@@ -138,6 +140,17 @@
           if (res.status === 200) {
             this.list = res.data
             console.log(this.list)
+          }
+        }).catch(e => {
+          console.log(e)
+        })
+      },
+      getResumeDeliveryRecord () {
+        api.getResumeDeliveryRecord(this.userId).then(res => {
+          if (res.status === 200) {
+            this.resumeDeliveryRecord = res.data.data
+            console.log('11')
+            console.log(this.resumeDeliveryRecord)
           }
         }).catch(e => {
           console.log(e)
