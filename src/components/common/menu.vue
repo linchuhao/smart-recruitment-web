@@ -17,33 +17,53 @@
           </span>
         <span v-if="!isLogin">
           <span class="tab" @click="redirect(4)">登录</span>
-          <span class="tab"  @click="toregister">注册</span>
+          <span class="tab"  @click="toRegister">注册</span>
         </span>
-        <el-dialog title="发布职位" :visible.sync="publishvisible">
-          <el-form :model="publishInfo" :rules="publishRules" ref='publishInfo'>
-            <el-form-item label="职位名称" prop="title" class="jobinput">
-              <el-input class="require" v-model="publishInfo.title"></el-input>
+        <el-dialog title="发布职位" :visible.sync="publishVisible" width="45%">
+          <el-form :model="jobInfo" status-icon :rules="publishRule" ref="jobInfo">
+            <el-form-item label="职位名称" :label-width="formLabelWidth" prop="jobName">
+              <el-row>
+                <el-col :span="14">
+                  <el-input v-model="jobInfo.jobName" autocomplete="off"/>
+                </el-col>
+              </el-row>
             </el-form-item>
-            <el-form-item label="职位介绍" prop="content" class="jobinput">
-              <el-input type="textarea" rows="10" class="require" v-model="publishInfo.content"></el-input>
+            <el-form-item label="职位类型" :label-width="formLabelWidth" prop="jobProperty">
+              <el-row>
+                <el-col :span="14">
+                  <el-input v-model="jobInfo.jobProperty" autocomplete="off"/>
+                </el-col>
+              </el-row>
             </el-form-item>
-            <el-form-item label="技术栈" prop="skillList">
-              <el-button @click="addskill()" class="addbtn">添加</el-button>
-              <div v-for="(item, key) in publishInfo.skillList" :key="key">
-                <input placeholder="技术" class="requireinput" v-model="item.name"/>
-                <select class="requireselect" v-model="item.weight">
-                  <option label="了解" value=1></option>
-                  <option label="熟悉" value=2></option>
-                  <option label="掌握" value=3></option>
-                  <option label="精通" value=4></option>
-                </select>
-                <i class="el-icon-error delete" @click="deleteItem(key)"></i>
-              </div>
+            <el-form-item label="薪酬区间" :label-width="formLabelWidth" prop="jobMinSalary">
+              <el-row>
+                <el-col :span="6"><el-input v-model="jobInfo.jobMinSalary"/></el-col>
+                <el-col :span="2">——</el-col>
+                <el-col :span="6"><el-input v-model="jobInfo.jobMaxSalary"/></el-col>
+              </el-row>
             </el-form-item>
-            <el-form-item>
-              <el-button @click="addjob('publishInfo')">确定</el-button>
+            <el-form-item label="职位城市" :label-width="formLabelWidth" prop="jobCity">
+              <el-row>
+                <el-col :span="14">
+                  <el-input v-model="jobInfo.jobCity" autocomplete="off"/>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item label="职位地址" :label-width="formLabelWidth" prop="jobAddress">
+              <el-row>
+                <el-col :span="14">
+                  <el-input v-model="jobInfo.jobAddress" autocomplete="off"/>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item label="职位要求" :label-width="formLabelWidth" prop="jobRequirement">
+              <el-input type="textarea" rows="8" v-model="jobInfo.jobRequirement" autocomplete="off"/>
             </el-form-item>
           </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="publishVisible = false">取 消</el-button>
+            <el-button type="primary" @click="deliveryJobInfo('jobInfo')">确 定</el-button>
+          </span>
         </el-dialog>
         <span v-if="isLogin" class="tab" @click="logout()" >退出登录</span>
       </div>
@@ -61,7 +81,6 @@
   header {
     width: 100%;
     height: 60px;
-/*    background: rgba(0,0,0,0.8);*/
     background: rgba(0, 95, 246, 0.8);
   }
   .contain {
@@ -80,88 +99,64 @@
     padding: 6px;
     border-radius: 4px;
   }
-  .icon {
-    position: relative;
-    background: red;
-    font-size: 10px;
-    border-radius: 50%;
-    left: 0;
-    top: -8px;
-    padding: 0 5px;
-    color: #fff;
-  }
-
-  .requireinput {
-    width: 35%;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    outline: 0;
-    background: #fff;
-    padding: 0 15px;
-    margin: auto 11.2px 14px auto;
-  }
-
-  .requireselect {
-    width: 35%;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    outline: 0;
-    background: #fff;
-    padding: 0 15px;
-    margin: auto 11.2px 14px auto;
-  }
-
-  .require {
-    width: 80%;
-  }
-
-  .addbtn {
-    position: relative;
-    top: 40px;
-    left: 280px;
-  }
-
-  .delete {
-    color: #dcdfe6;
-    position: relative;
-    left: -10px;
-  }
-
-  .delete:hover {
-    color: red;
-  }
 
 </style>
 <script>/* eslint-disable standard/object-curly-even-spacing */
 
-import fetch from '../../api/fetch'
-
+import api from '../../api/index'
 export default {
   data () {
-    var checktitle = (rule, value, callback) => {
+    var checkJobName = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('职位名称不能为空'))
       } else {
         callback()
       }
     }
-    var checkintroduce = (rule, value, callback) => {
+    var checkJobSalary = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('职位介绍不能为空'))
+        return callback(new Error('薪酬范围不能为空'))
       } else {
         callback()
       }
     }
-    var checkskill = (rule, value, callback) => {
+    var checkJobAddress = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('技术要求不能为空'))
+        return callback(new Error('职位地址不能为空'))
+      } else {
+        callback()
+      }
+    }
+    var checkJobCity = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('职位城市不能为空'))
+      } else {
+        callback()
+      }
+    }
+    var checkJobProperty = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('职位类型不能为空'))
+      } else {
+        callback()
+      }
+    }
+    var checkJobRequirement = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('职位要求不能为空'))
       } else {
         callback()
       }
     }
     return {
+      publishRule: {
+        jobName: [{validator: checkJobName, trigger: 'blur'}],
+        jobAddress: [{validator: checkJobAddress, trigger: 'blur'}],
+        jobMinSalary: [{validator: checkJobSalary, trigger: 'blur'}],
+        jobCity: [{validator: checkJobCity, trigger: 'blur'}],
+        jobProperty: [{validator: checkJobProperty, trigger: 'blur'}],
+        jobRequirement: [{validator: checkJobRequirement, trigger: 'blur'}]
+      },
       index: 0,
       count: 0,
       amount: 0,
@@ -178,17 +173,23 @@ export default {
           }
         ]
       },
-      publishvisible: false,
+      jobInfo: {
+        'jobFrom': '',
+        'jobName': '',
+        'jobMinSalary': '',
+        'jobMaxSalary': '',
+        'jobAddress': '',
+        'jobCity': '',
+        'jobProperty': '',
+        'jobRequirement': ''
+      },
+      formLabelWidth: '80px',
+      publishVisible: false,
       isHr: false,
       content: '',
       companyList: [],
       msg: '',
-      isLogin: false,
-      publishRules: {
-        title: [{validator: checktitle, trigger: 'blur'}],
-        content: [{validator: checkintroduce, trigger: 'blur'}],
-        skillList: [{validator: checkskill, trigger: 'blur'}]
-      }
+      isLogin: false
     }
   },
   created () {
@@ -209,6 +210,29 @@ export default {
     }
   },
   methods: {
+    deliveryJobInfo (formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.jobInfo.jobFrom = sessionStorage.getItem('userId')
+          api
+            .deliveryJobInfo(this.jobInfo)
+            .then(res => {
+              if (res.data.success) {
+                this.$message({
+                  message: '保存成功',
+                  type: 'success'
+                })
+                this.publishVisible = false
+              }
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        } else {
+          console.log('error submit!!')
+        }
+      })
+    },
     /*    initWs () {
       if (sessionStorage.getItem('userId') !== null) {
         if ('WebSocket' in window) {
@@ -246,14 +270,8 @@ export default {
         this.$router.push({name: 'hrView'})
       }
     },
-    toregister () {
+    toRegister () {
       this.$router.push({name: 'register'})
-    },
-    getJob (value) {
-      if (value !== null) {
-        localStorage.setItem('content', value)
-      }
-      this.$router.push({name: 'search', params: {count: 1}})
     },
     logout () {
       /*      fetch
@@ -279,35 +297,9 @@ export default {
       sessionStorage.removeItem('role')
       location.reload()
     },
-    addjob (formName) {
-      this.publishvisible = false
-      this.publishInfo.hrId = sessionStorage.getItem('userId')
-      this.publishInfo.companyId = localStorage.getItem('companyId')
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          fetch.publishJob(this.publishInfo).then(res => {
-            if (res.status === 200) {
-              this.amount++
-              this.$refs[formName].resetFields()
-            }
-          }).catch(e => {
-            console.log(e)
-          })
-        }
-      })
-    },
-    deleteItem (key) {
-      this.publishInfo.skillList.splice(key, 1)
-    },
-    addskill () {
-      let newskills = {
-        weight: 0,
-        name: ''
-      }
-      this.publishInfo.skillList.push(newskills)
-    },
     changeStatus () {
-      this.publishvisible = true
+      this.jobInfo = {}
+      this.publishVisible = true
     }
   }
 }

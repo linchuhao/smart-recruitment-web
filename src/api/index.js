@@ -55,6 +55,10 @@ export default {
   uploadHrInfoAvatar (file, userId) {
     return axios.post('/api/hr/uploadHrInfoAvatar', file, {headers: headers, params: {userId: userId}})
   },
+  // 发布职位信息
+  deliveryJobInfo (jobInfo) {
+    return axios.post('/api/job/deliveryJobInfo', JSON.stringify(jobInfo), {headers: headers})
+  },
   // 获取热门企业信息
   getHotEnterprise () {
     return axios.get('/api/enterprise/getHotEnterprise', {headers: headers})
