@@ -3,12 +3,14 @@
     <div class="contain">
       <div>
         <span @click="redirect(1)" class="tab">首页</span>
-        <span v-if="isHr" @click="changeStatus" class="tab">发布职位</span>
+        <span v-if="isHr" @click="openDeliveryJobInfo" class="tab">发布职位</span>
         <span v-if="isHr && isLogin" @click="redirect(6)" class="tab">个人中心</span>
         <span v-if="!isHr && isLogin" @click="redirect(2)" class="tab">个人中心</span>
-        <span class="tab" v-if="!isHr"><el-input placeholder="搜索心仪的职位" style="width:18rem" v-model="content"
-                                                 @change="getJob(content)"><i slot="prefix"
-                                                                              class="el-input__icon el-icon-search"></i></el-input></span>
+        <span class="tab" v-if="!isHr">
+          <el-input placeholder="搜索心仪的职位" style="width:18rem" v-model="content" @change="getJob(content)">
+            <i slot="prefix" class="el-input__icon el-icon-search"/>
+          </el-input>
+        </span>
       </div>
       <div>
         <span @click="redirect(3)" class="tab" v-show="isLogin">
@@ -40,6 +42,31 @@
                 <el-col :span="6"><el-input v-model="jobInfo.jobMinSalary"/></el-col>
                 <el-col :span="2">——</el-col>
                 <el-col :span="6"><el-input v-model="jobInfo.jobMaxSalary"/></el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item label="学历要求" :label-width="formLabelWidth" prop="jobEducation">
+              <el-row>
+                <el-col :span="14">
+                  <el-select v-model="jobInfo.jobEducation" placeholder="请选择学历" style="width: 100%">
+                    <el-option label="大专" value="大专"/>
+                    <el-option label="本科" value="本科"/>
+                    <el-option label="硕士" value="硕士"/>
+                    <el-option label="博士" value="博士"/>
+                  </el-select>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item label="工作经验" :label-width="formLabelWidth" prop="jobExperience">
+              <el-row>
+                <el-col :span="14">
+                  <el-select v-model="jobInfo.jobExperience" placeholder="请选择工作经验" style="width: 100%">
+                    <el-option label="不限" value="不限"/>
+                    <el-option label="1年以上" value="1年以上"/>
+                    <el-option label="2年以上" value="2年以上"/>
+                    <el-option label="3-5年" value="3-5年"/>
+                    <el-option label="5年以上" value="5年以上"/>
+                  </el-select>
+                </el-col>
               </el-row>
             </el-form-item>
             <el-form-item label="职位城市" :label-width="formLabelWidth" prop="jobCity">
@@ -134,6 +161,20 @@ export default {
         callback()
       }
     }
+    var checkJobExperience = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('工作经验不能为空'))
+      } else {
+        callback()
+      }
+    }
+    var checkJobEducation = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('学历要求不能为空'))
+      } else {
+        callback()
+      }
+    }
     var checkJobProperty = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('职位类型不能为空'))
@@ -153,6 +194,8 @@ export default {
         jobName: [{validator: checkJobName, trigger: 'blur'}],
         jobAddress: [{validator: checkJobAddress, trigger: 'blur'}],
         jobMinSalary: [{validator: checkJobSalary, trigger: 'blur'}],
+        jobExperience: [{validator: checkJobExperience, trigger: 'blur'}],
+        jobEducation: [{validator: checkJobEducation, trigger: 'blur'}],
         jobCity: [{validator: checkJobCity, trigger: 'blur'}],
         jobProperty: [{validator: checkJobProperty, trigger: 'blur'}],
         jobRequirement: [{validator: checkJobRequirement, trigger: 'blur'}]
@@ -178,6 +221,8 @@ export default {
         'jobName': '',
         'jobMinSalary': '',
         'jobMaxSalary': '',
+        'jobEducation': '',
+        'jobExperience': '',
         'jobAddress': '',
         'jobCity': '',
         'jobProperty': '',
@@ -222,6 +267,7 @@ export default {
                   message: '保存成功',
                   type: 'success'
                 })
+                this.jobInfo = {}
                 this.publishVisible = false
               }
             })
@@ -297,9 +343,11 @@ export default {
       sessionStorage.removeItem('role')
       location.reload()
     },
-    changeStatus () {
-      this.jobInfo = {}
+    openDeliveryJobInfo () {
       this.publishVisible = true
+    },
+    getJob (value) {
+      this.$router.push({name: 'search', params: {count: 1}})
     }
   }
 }
