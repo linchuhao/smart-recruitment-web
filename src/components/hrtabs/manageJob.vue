@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <div v-if="!jobDeliveryRecord" class="noFound">
+    <div v-if="!jobReleaseRecord" class="noFound">
       <img src="static/img/notFound.png">
       <p>暂时没有发布的职位哦，快去发布吧</p>
     </div>
-    <el-row v-if="jobDeliveryRecord">
+    <el-row v-if="jobReleaseRecord">
       <el-col :span="4"><div class="grid-content ">职位名称</div></el-col>
       <el-col :span="2"><div class="grid-content ">职位类型</div></el-col>
       <el-col :span="2"><div class="grid-content ">学历</div></el-col>
@@ -15,7 +15,7 @@
       <el-col :span="2"><div class="grid-content ">投递人数</div></el-col>
       <el-col :span="2"><div class="grid-content ">编辑</div></el-col>
     </el-row>
-    <div v-for="item in jobDeliveryRecord" v-bind:key="item.id" v-if="jobDeliveryRecord">
+    <div v-for="item in jobReleaseRecord" v-bind:key="item.id" v-if="jobReleaseRecord">
       <el-row>
         <el-col :span="4"><div class="grid-content bg-purple">{{item.jobName}}</div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple-light">{{item.jobProperty}}</div></el-col>
@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  props: ['jobDeliveryRecord'],
+  props: ['jobReleaseRecord'],
   data () {
     return {
     }

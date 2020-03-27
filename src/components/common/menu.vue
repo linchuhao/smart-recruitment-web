@@ -89,7 +89,7 @@
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="publishVisible = false">取 消</el-button>
-            <el-button type="primary" @click="deliveryJobInfo('jobInfo')">确 定</el-button>
+            <el-button type="primary" @click="releaseJobInfo('jobInfo')">确 定</el-button>
           </span>
         </el-dialog>
         <span v-if="isLogin" class="tab" @click="logout()" >退出登录</span>
@@ -255,12 +255,12 @@ export default {
     }
   },
   methods: {
-    deliveryJobInfo (formName) {
+    releaseJobInfo (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.jobInfo.jobFrom = sessionStorage.getItem('userId')
           api
-            .deliveryJobInfo(this.jobInfo)
+            .releaseJobInfo(this.jobInfo)
             .then(res => {
               if (res.data.success) {
                 this.$message({

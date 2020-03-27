@@ -40,8 +40,8 @@ export default {
     return axios.get('/api/hr/getHrInfo', {params: {userId: userId}}, {headers: headers})
   },
   // 获取职位发布记录
-  getJobDeliveryRecord (userId) {
-    return axios.get('/api/hr/getJobDeliveryRecord', {params: {userId: userId}}, {headers: headers})
+  getJobReleaseRecord (userId) {
+    return axios.get('/api/hr/getJobReleaseRecord', {params: {userId: userId}}, {headers: headers})
   },
   // 获取简历接收记录
   getResumeReceiveRecord (userId) {
@@ -56,8 +56,8 @@ export default {
     return axios.post('/api/hr/uploadHrInfoAvatar', file, {headers: headers, params: {userId: userId}})
   },
   // 发布职位信息
-  deliveryJobInfo (jobInfo) {
-    return axios.post('/api/job/deliveryJobInfo', JSON.stringify(jobInfo), {headers: headers})
+  releaseJobInfo (jobInfo) {
+    return axios.post('/api/job/releaseJobInfo', JSON.stringify(jobInfo), {headers: headers})
   },
   // 获取热门企业信息
   getHotEnterprise () {

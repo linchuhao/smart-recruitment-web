@@ -24,7 +24,7 @@
       </el-tab-pane>
       <el-tab-pane>
       <span slot="label">职位管理<i class="el-icon-arrow-right"></i></span>
-        <manage-job :jobDeliveryRecord="jobDeliveryRecord"/>
+        <manage-job :jobReleaseRecord="jobReleaseRecord"/>
     </el-tab-pane>
      <el-tab-pane>
       <span slot="label">投递记录<i class="el-icon-arrow-right"></i></span>
@@ -63,7 +63,7 @@ export default {
         'hrInfoSchool': '',
         'hrInfoSex': ''
       },
-      jobDeliveryRecord: [],
+      jobReleaseRecord: [],
       receiveRecord: []
     }
   },
@@ -77,7 +77,7 @@ export default {
   },
   created () {
     this.getHrInfo()
-    this.getJobDeliveryRecord()
+    this.getJobReleaseRecord()
     this.getResumeReceiveRecord()
   },
   watch: {
@@ -107,12 +107,12 @@ export default {
         console.log(e)
       })
     },
-    getJobDeliveryRecord () {
-      api.getJobDeliveryRecord(this.userId).then(res => {
+    getJobReleaseRecord () {
+      api.getJobReleaseRecord(this.userId).then(res => {
         if (res.status === 200) {
-          this.jobDeliveryRecord = res.data.data
+          this.jobReleaseRecord = res.data.data
           console.log('getJobDeliveryRecord')
-          console.log(this.jobDeliveryRecord)
+          console.log(this.jobReleaseRecord)
         }
       }).catch(e => {
         console.log(e)
