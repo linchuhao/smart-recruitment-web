@@ -8,6 +8,7 @@ const register = resolve => require(['../views/register.vue'], resolve)
 const login = resolve => require(['../views/login.vue'], resolve)
 const userInfo = resolve => require(['../views/userInfo.vue'], resolve)
 const hrUserInfo = resolve => require(['../views/hrViews/userInfo.vue'], resolve)
+const search = resolve => require(['../views/searchRes.vue'], resolve)
 export default new Router({
   routes: [
     {
@@ -52,6 +53,17 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/search',
+      component: CommonPage,
+      children: [
+        {
+          path: '',
+          name: 'search',
+          component: search
+        }
+      ]
     }
   ]
 })

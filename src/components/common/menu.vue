@@ -7,7 +7,7 @@
         <span v-if="isHr && isLogin" @click="redirect(6)" class="tab">个人中心</span>
         <span v-if="!isHr && isLogin" @click="redirect(2)" class="tab">个人中心</span>
         <span class="tab" v-if="!isHr">
-          <el-input placeholder="搜索心仪的职位" style="width:18rem" v-model="content" @change="getJob(content)">
+          <el-input placeholder="搜索心仪的职位" style="width:18rem" v-model="content" @change="searchJob(content)">
             <i slot="prefix" class="el-input__icon el-icon-search"/>
           </el-input>
         </span>
@@ -346,8 +346,15 @@ export default {
     openDeliveryJobInfo () {
       this.publishVisible = true
     },
-    getJob (value) {
-      this.$router.push({name: 'search', params: {count: 1}})
+    searchJob (value) {
+      if (value !== null) {
+        localStorage.setItem('content', value)
+      }
+      if (this.$route.path === '/search/') {
+        location.reload()
+      } else {
+        this.$router.push({name: 'search'})
+      }
     }
   }
 }

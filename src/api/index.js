@@ -59,6 +59,10 @@ export default {
   releaseJobInfo (jobInfo) {
     return axios.post('/api/job/releaseJobInfo', JSON.stringify(jobInfo), {headers: headers})
   },
+  // 搜索职位信息
+  searchJobInfo (jobName) {
+    return axios.get('/api/job/searchJobInfo', {params: {jobName: jobName}}, {headers: headers})
+  },
   // 获取热门企业信息
   getHotEnterprise () {
     return axios.get('/api/enterprise/getHotEnterprise', {headers: headers})
