@@ -6,8 +6,8 @@
       <p>暂时没有该岗位信息</p>
     </div>
     <el-card v-if="jobInfo" v-for="(item, key) in jobInfo" :key="key" class="jobcard">
-      <div  @click="findDetail(item.id)">
-       <img class="jobavatar" :src="item.enterpriseLogo"/>
+      <div  @click="findDetail(item)">
+       <img class="enterpriseLogo" :src="item.enterpriseLogo"/>
        <div class="introduce">
          <p>{{item.jobName}}</p>
          <p>
@@ -24,9 +24,47 @@
        </div>
       </div>
     </el-card>
+    <el-dialog title="职位详情" :visible.sync="jobDetailVisible" width="45%">
+      <el-card class="jobDetail">
+        <p>
+          {{jobDetail.jobName}}
+          <span class="dividingLine">|</span>
+          {{jobDetail.enterpriseName}}
+          <span class="dividingLine">|</span>
+          {{jobDetail.jobCity}}
+        </p>
+        <p>
+          <span>薪酬范围：</span>
+          <span class="salary">{{transformSalary(jobDetail.jobMinSalary)}} - {{transformSalary(jobDetail.jobMaxSalary)}}</span>
+        </p>
+        <p>
+          <span>学历要求：</span>
+          <span>{{jobDetail.jobEducation}}</span>
+        </p>
+        <p>
+          <span>工作经验：</span>
+          <span>{{jobDetail.jobExperience}}</span>
+        </p>
+        <p>任职要求：</p>
+        <p  v-html="jobDetail.jobRequirement">{{jobDetail.jobRequirement}}</p>
+        <p>详细地址：{{jobDetail.jobAddress}}</p>
+        <div>
+            <span style="float: left; margin: 4px 0 4px 0">发布人: {{jobDetail.jobFrom}}</span>
+            <span style="float: right;  margin: 4px 0 4px 0">{{jobDetail.jobDatetime}}</span>
+        </div>
+      </el-card>
+      <span slot="footer" class="dialog-footer">
+            <el-button @click="jobDetailVisible = false">取 消</el-button>
+            <el-button type="primary" @click="jobDetailVisible = false">确 定</el-button>
+          </span>
+    </el-dialog>
   </div>
 </template>
 <style>
+  .jobDetail p {
+    margin: 4px 0 4px 0;
+    text-align: left;
+  }
   .noFound p {
     font-size: 28px;
     color: #909399;
@@ -37,7 +75,7 @@
     width: 350px;
     height: 300px;
   }
-  .jobcard .jobavatar:hover {
+  .jobcard .enterpriseLogo:hover {
     transform: scale(1.05);
     transition: 3ms;
     box-shadow: 5px 5px 10px #888;
@@ -58,7 +96,7 @@
     margin: 20px auto auto auto;
     cursor: pointer;
   }
-  .jobavatar {
+  .enterpriseLogo {
     float: left;
     width: 126px;
     height: 110px;
@@ -80,7 +118,9 @@ export default {
   data () {
     return {
       content: localStorage.getItem('content'),
-      jobInfo: []
+      jobInfo: [],
+      jobDetailVisible: false,
+      jobDetail: {}
     }
   },
   mounted () {
@@ -90,9 +130,13 @@ export default {
     transformSalary (salary) {
       return salary / 1000 + 'K'
     },
-    findDetail (id) {
-      localStorage.setItem('jobId', id)
-      this.$router.push({name: 'jobInfo'})
+    findDetail (jobDetail) {
+      /*      localStorage.setItem('jobId', id)
+      this.$router.push({name: 'jobInfo'}) */
+      console.log(12345)
+      this.jobDetailVisible = true
+      this.jobDetail = jobDetail
+      console.log(this.jobDetail)
     },
     getSearchJobInfo () {
       api.searchJobInfo(this.content).then(res => {
