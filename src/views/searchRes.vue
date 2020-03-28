@@ -45,6 +45,8 @@
           <span>工作经验：</span>
           <span>{{jobDetail.jobExperience}}</span>
         </p>
+        <p>工作职责：</p>
+        <p  v-html="jobDetail.jobResponsibility">{{jobDetail.jobResponsibility}}</p>
         <p>任职要求：</p>
         <p  v-html="jobDetail.jobRequirement">{{jobDetail.jobRequirement}}</p>
         <p>详细地址：{{jobDetail.jobAddress}}</p>

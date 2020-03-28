@@ -83,8 +83,19 @@
                 </el-col>
               </el-row>
             </el-form-item>
+            <el-form-item label="工作职责" :label-width="formLabelWidth" prop="jobResponsibility">
+              <el-row>
+                <el-col :span="18">
+                  <el-input type="textarea" rows="5" v-model="jobInfo.jobResponsibility" autocomplete="off"/>
+                </el-col>
+              </el-row>
+            </el-form-item>
             <el-form-item label="职位要求" :label-width="formLabelWidth" prop="jobRequirement">
-              <el-input type="textarea" rows="8" v-model="jobInfo.jobRequirement" autocomplete="off"/>
+              <el-row>
+                <el-col :span="18">
+                  <el-input type="textarea" rows="5" v-model="jobInfo.jobRequirement" autocomplete="off"/>
+                </el-col>
+              </el-row>
             </el-form-item>
           </el-form>
           <span slot="footer" class="dialog-footer">
@@ -182,6 +193,13 @@ export default {
         callback()
       }
     }
+    var checkJobResponsibility = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('工作职责不能为空'))
+      } else {
+        callback()
+      }
+    }
     var checkJobRequirement = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('职位要求不能为空'))
@@ -198,6 +216,7 @@ export default {
         jobEducation: [{validator: checkJobEducation, trigger: 'blur'}],
         jobCity: [{validator: checkJobCity, trigger: 'blur'}],
         jobProperty: [{validator: checkJobProperty, trigger: 'blur'}],
+        jobResponsibility: [{validator: checkJobResponsibility, trigger: 'blur'}],
         jobRequirement: [{validator: checkJobRequirement, trigger: 'blur'}]
       },
       index: 0,
@@ -226,6 +245,7 @@ export default {
         'jobAddress': '',
         'jobCity': '',
         'jobProperty': '',
+        'jobResponsibility': '',
         'jobRequirement': ''
       },
       formLabelWidth: '80px',
@@ -258,6 +278,7 @@ export default {
     releaseJobInfo (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          this.transformLineBreak()
           this.jobInfo.jobFrom = sessionStorage.getItem('userId')
           api
             .releaseJobInfo(this.jobInfo)
@@ -278,6 +299,10 @@ export default {
           console.log('error submit!!')
         }
       })
+    },
+    transformLineBreak () {
+      this.jobInfo.jobRequirement = (this.jobInfo.jobRequirement + '').replace(/\n/g, '<br/>')
+      this.jobInfo.jobResponsibility = (this.jobInfo.jobResponsibility + '').replace(/\n/g, '<br/>')
     },
     /*    initWs () {
       if (sessionStorage.getItem('userId') !== null) {
