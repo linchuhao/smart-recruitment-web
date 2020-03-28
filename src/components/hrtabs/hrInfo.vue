@@ -67,7 +67,12 @@
         <el-input v-model="list.hrInfoIntroduction"/>
       </el-form-item>
       <el-form-item label="学历" prop="hrInfoEducation">
-        <el-input v-model="list.hrInfoEducation"/>
+        <el-select v-model="list.hrInfoEducation" placeholder="请选择性别" style="width: 100%">
+          <el-option label="大专" value="大专"/>
+          <el-option label="本科" value="本科"/>
+          <el-option label="硕士" value="硕士"/>
+          <el-option label="博士" value="博士"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="学校" prop="hrInfoSchool">
         <el-input v-model="list.hrInfoSchool"/>

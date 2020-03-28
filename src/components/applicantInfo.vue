@@ -47,37 +47,42 @@
     <el-form  :model="list" status-icon :rules="rules2" ref="list" label-width="100px" class="formWrap"
              v-if="isEdit">
        <el-form-item label="姓名" prop="applicantInfoName">
-        <el-input v-model="list.applicantInfoName" auto-complete="off"></el-input>
+         <el-input v-model="list.applicantInfoName" auto-complete="off"/>
       </el-form-item>
       <el-form-item label="职位" prop="applicantInfoProperty">
-        <el-input v-model="list.applicantInfoProperty" auto-complete="off"></el-input>
+        <el-input v-model="list.applicantInfoProperty" auto-complete="off"/>
       </el-form-item>
       <el-form-item label="手机号码" prop="applicantInfoPhone">
-        <el-input v-model="list.applicantInfoPhone" auto-complete="off"></el-input>
+        <el-input v-model="list.applicantInfoPhone" auto-complete="off"/>
       </el-form-item>
       <el-form-item label="邮箱" prop="applicantInfoEmail">
-        <el-input v-model="list.applicantInfoEmail" auto-complete="off"></el-input>
+        <el-input v-model="list.applicantInfoEmail" auto-complete="off"/>
       </el-form-item>
       <el-form-item label="性别" prop="applicantInfoSex">
         <el-select v-model="list.applicantInfoSex" placeholder="请选择性别" style="width: 100%">
-          <el-option label="男" value="男"></el-option>
-          <el-option label="女" value="女"></el-option>
+          <el-option label="男" value="男"/>
+          <el-option label="女" value="女"/>
         </el-select>
       </el-form-item>
       <el-form-item label="地址" prop="applicantInfoAddress">
-        <el-input v-model="list.applicantInfoAddress"></el-input>
+        <el-input v-model="list.applicantInfoAddress"/>
       </el-form-item>
       <el-form-item label="我的简介" prop="applicantInfoIntroduction">
-        <el-input v-model="list.applicantInfoIntroduction"></el-input>
+        <el-input v-model="list.applicantInfoIntroduction"/>
       </el-form-item>
       <el-form-item label="学历" prop="applicantInfoEducation">
-        <el-input v-model="list.applicantInfoEducation"></el-input>
+        <el-select v-model="list.applicantInfoEducation" placeholder="请选择学历" style="width: 100%">
+          <el-option label="大专" value="大专"/>
+          <el-option label="本科" value="本科"/>
+          <el-option label="硕士" value="硕士"/>
+          <el-option label="博士" value="博士"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="学校" prop="applicantInfoSchool">
-        <el-input v-model="list.applicantInfoSchool"></el-input>
+        <el-input v-model="list.applicantInfoSchool"/>
       </el-form-item>
       <el-form-item label="专业" prop="applicantInfoMajor">
-        <el-input v-model="list.applicantInfoMajor" auto-complete="off"></el-input>
+        <el-input v-model="list.applicantInfoMajor" auto-complete="off"/>
       </el-form-item>
       <el-form-item>
         <el-button class='editor' @click="changeEdit">返回</el-button>
