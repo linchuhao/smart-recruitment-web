@@ -85,14 +85,14 @@
             </el-form-item>
             <el-form-item label="工作职责" :label-width="formLabelWidth" prop="jobResponsibility">
               <el-row>
-                <el-col :span="18">
+                <el-col :span="20">
                   <el-input type="textarea" rows="5" v-model="jobInfo.jobResponsibility" autocomplete="off"/>
                 </el-col>
               </el-row>
             </el-form-item>
             <el-form-item label="职位要求" :label-width="formLabelWidth" prop="jobRequirement">
               <el-row>
-                <el-col :span="18">
+                <el-col :span="20">
                   <el-input type="textarea" rows="5" v-model="jobInfo.jobRequirement" autocomplete="off"/>
                 </el-col>
               </el-row>
@@ -278,7 +278,7 @@ export default {
     releaseJobInfo (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.transformLineBreak()
+          this.transformLineBreak2Tag()
           this.jobInfo.jobFrom = sessionStorage.getItem('userId')
           api
             .releaseJobInfo(this.jobInfo)
@@ -300,7 +300,7 @@ export default {
         }
       })
     },
-    transformLineBreak () {
+    transformLineBreak2Tag () {
       this.jobInfo.jobRequirement = (this.jobInfo.jobRequirement + '').replace(/\n/g, '<br/>')
       this.jobInfo.jobResponsibility = (this.jobInfo.jobResponsibility + '').replace(/\n/g, '<br/>')
     },

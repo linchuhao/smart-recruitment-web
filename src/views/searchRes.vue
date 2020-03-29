@@ -63,6 +63,9 @@
   </div>
 </template>
 <style>
+  .jobDetail {
+    margin: 2px;
+  }
   .jobDetail p {
     margin: 4px 0 4px 0;
     text-align: left;
@@ -133,19 +136,13 @@ export default {
       return salary / 1000 + 'K'
     },
     findDetail (jobDetail) {
-      /*      localStorage.setItem('jobId', id)
-      this.$router.push({name: 'jobInfo'}) */
-      console.log(12345)
       this.jobDetailVisible = true
       this.jobDetail = jobDetail
-      console.log(this.jobDetail)
     },
     getSearchJobInfo () {
       api.searchJobInfo(this.content).then(res => {
         if (res.status === 200) {
           this.jobInfo = res.data.data
-          console.log('getReceiveRecord')
-          console.log(this.jobInfo)
         }
       }).catch(e => {
         console.log(e)

@@ -51,6 +51,10 @@ export default {
   updateHrInfo (hrInfo) {
     return axios.post('/api/hr/updateHrInfo', JSON.stringify(hrInfo), {headers: headers})
   },
+  // 更改职位信息
+  updateJobInfo (jobInfo) {
+    return axios.post('/api/hr/updateJobInfo', JSON.stringify(jobInfo), {headers: headers})
+  },
   // 上传HR头像
   uploadHrInfoAvatar (file, userId) {
     return axios.post('/api/hr/uploadHrInfoAvatar', file, {headers: headers, params: {userId: userId}})
