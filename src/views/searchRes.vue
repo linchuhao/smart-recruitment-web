@@ -25,7 +25,7 @@
       </div>
     </el-card>
     <el-dialog title="职位详情" :visible.sync="jobDetailVisible" width="45%">
-      <el-card class="jobDetail">
+      <el-card>
         <p>
           {{jobDetail.jobName}}
           <span class="dividingLine">|</span>
@@ -63,9 +63,6 @@
   </div>
 </template>
 <style>
-  .jobDetail {
-    margin: 2px;
-  }
   .jobDetail p {
     margin: 4px 0 4px 0;
     text-align: left;
