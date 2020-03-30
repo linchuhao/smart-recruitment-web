@@ -35,6 +35,10 @@ export default {
   updateApplicantInfo (applicantInfo) {
     return axios.post('/api/applicant/updateApplicantInfo', JSON.stringify(applicantInfo), {headers: headers})
   },
+  // 进行投递简历
+  deliverResume (deliveryRecord) {
+    return axios.post('/api/applicant/deliverResume', JSON.stringify(deliveryRecord), {headers: headers})
+  },
   // 获取HR信息
   getHrInfo (userId) {
     return axios.get('/api/hr/getHrInfo', {params: {userId: userId}}, {headers: headers})

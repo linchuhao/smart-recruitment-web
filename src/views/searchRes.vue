@@ -51,13 +51,13 @@
         <p  v-html="jobDetail.jobRequirement">{{jobDetail.jobRequirement}}</p>
         <p>详细地址：{{jobDetail.jobAddress}}</p>
         <div>
-            <span style="float: left; margin: 4px 0 4px 0">发布人: {{jobDetail.jobFrom}}</span>
+            <span style="float: left; margin: 4px 0 4px 0">发布人: {{jobDetail.hrName}}</span>
             <span style="float: right;  margin: 4px 0 4px 0">{{jobDetail.jobDatetime}}</span>
         </div>
       </el-card>
       <span slot="footer" class="dialog-footer">
             <el-button @click="jobDetailVisible = false">取 消</el-button>
-            <el-button type="primary" @click="jobDetailVisible = false">确 定</el-button>
+            <el-button type="primary" @click="deliverResume(jobDetail)">投 递</el-button>
           </span>
     </el-dialog>
   </div>
@@ -128,7 +128,8 @@ export default {
       content: localStorage.getItem('content'),
       jobInfo: [],
       jobDetailVisible: false,
-      jobDetail: {}
+      jobDetail: {},
+      deliveryRecord: {}
     }
   },
   mounted () {
@@ -146,6 +147,23 @@ export default {
       api.searchJobInfo(this.content).then(res => {
         if (res.status === 200) {
           this.jobInfo = res.data.data
+        }
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    deliverResume (jobDetail) {
+      this.jobDetailVisible = false
+      this.deliveryRecord.jobId = jobDetail.jobId
+      this.deliveryRecord.hrName = jobDetail.hrName
+      this.deliveryRecord.applicantInfoId = sessionStorage.getItem('userId')
+      api.deliverResume(this.deliveryRecord).then(res => {
+        if (res.status === 200) {
+          if (res.data.success) {
+            this.$message.success(res.data.data)
+          } else {
+            this.$message.error(res.data.msg)
+          }
         }
       }).catch(e => {
         console.log(e)
