@@ -207,7 +207,7 @@ export default {
       return salary / 1000 + 'K'
     },
     transformTag2LineBreak () {
-      this.jobDetail.jobResponsibility = this.jobDetail.jobResponsibility.replace('<br/>', '\n')
+      this.jobDetail.jobResponsibility = this.jobDetail.jobResponsibility.replace(/<br[\s]?\/>/g, '\n')
       this.jobDetail.jobRequirement = this.jobDetail.jobRequirement.replace(/<br[\s]?\/>/g, '\n')
     },
     transformLineBreak2Tag () {

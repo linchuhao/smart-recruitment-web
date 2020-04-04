@@ -153,21 +153,25 @@ export default {
       })
     },
     deliverResume (jobDetail) {
-      this.jobDetailVisible = false
-      this.deliveryRecord.jobId = jobDetail.jobId
-      this.deliveryRecord.hrName = jobDetail.hrName
       this.deliveryRecord.applicantId = sessionStorage.getItem('userId')
-      api.deliverResume(this.deliveryRecord).then(res => {
-        if (res.status === 200) {
-          if (res.data.success) {
-            this.$message.success(res.data.data)
-          } else {
-            this.$message.error(res.data.msg)
+      if (this.deliveryRecord.applicantId) {
+        this.jobDetailVisible = false
+        this.deliveryRecord.jobId = jobDetail.jobId
+        this.deliveryRecord.hrName = jobDetail.hrName
+        api.deliverResume(this.deliveryRecord).then(res => {
+          if (res.status === 200) {
+            if (res.data.success) {
+              this.$message.success(res.data.data)
+            } else {
+              this.$message.error(res.data.msg)
+            }
           }
-        }
-      }).catch(e => {
-        console.log(e)
-      })
+        }).catch(e => {
+          console.log(e)
+        })
+      } else {
+        this.$message.error('请先登录后再进行简历投递！')
+      }
     }
   }
 }

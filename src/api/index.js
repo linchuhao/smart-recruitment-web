@@ -62,5 +62,9 @@ export default {
   // 获取热门职位信息
   getHotJob () {
     return axios.get('/api/job/getHotJob', {headers: headers})
+  },
+  // 获取用户消息
+  getUserMsg (userId) {
+    return axios.get('/api/userMsg/getUserMsg', {params: {userId: userId}}, {headers: headers})
   }
 }

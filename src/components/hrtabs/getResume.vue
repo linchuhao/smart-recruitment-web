@@ -16,7 +16,7 @@
     </el-row>
     <div v-for="item in receiveRecord" v-bind:key="item.id" v-if="receiveRecord">
       <el-row>
-        <el-col :span="4"><div class="grid-content bg-purple">{{item.jobName}}</div></el-col>
+        <el-col :span="4"><div class="jobName">{{item.jobName}}</div></el-col>
         <el-col :span="3"><div class="grid-content bg-purple-light">{{item.applicantInfoName}}</div></el-col>
         <el-col :span="5"><div class="grid-content bg-purple">{{item.applicantInfoSchool}}</div></el-col>
         <el-col :span="3"><div class="grid-content bg-purple-light">{{item.applicantInfoMajor}}</div></el-col>
@@ -28,6 +28,14 @@
   </div>
 </template>
 <style>
+  .jobName{
+    background: #d3dce6;
+    height: 36px;
+    margin: 2px;
+    padding: 10px 0 10px 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
   .getResumeWrap {
     height: 1000px;
     overflow: scroll;

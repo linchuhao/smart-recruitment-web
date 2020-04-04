@@ -4,7 +4,7 @@ import CommonPage from '../components/common/commonPage.vue'
 import index from '../views/index.vue'
 
 Vue.use(Router)
-const infoCenter = resolve => require(['../views/infoCenter.vue'], resolve)
+const messageCenter = resolve => require(['../views/messageCenter.vue'], resolve)
 const register = resolve => require(['../views/register.vue'], resolve)
 const login = resolve => require(['../views/login.vue'], resolve)
 const userInfo = resolve => require(['../views/userInfo.vue'], resolve)
@@ -61,8 +61,8 @@ export default new Router({
       children: [
         {
           path: '/',
-          name: 'infoCenter',
-          component: infoCenter
+          name: 'messageCenter',
+          component: messageCenter
         }
       ]
     },

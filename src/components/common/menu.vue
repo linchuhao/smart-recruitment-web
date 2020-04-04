@@ -332,11 +332,11 @@ export default {
       } else if (num === 2) {
         this.$router.push({name: 'userInfo'})
       } else if (num === 3) {
-        this.$router.push({name: 'infoCenter'})
+        this.$router.push({name: 'messageCenter'})
       } else if (num === 4) {
         this.$router.push({name: 'login'})
       } else if (num === 5) {
-        this.$router.push({name: 'infoCenter'})
+        this.$router.push({name: 'messageCenter'})
       } else if (num === 6) {
         this.$router.push({name: 'hrView'})
       }
