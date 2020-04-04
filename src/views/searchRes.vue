@@ -156,7 +156,7 @@ export default {
       this.jobDetailVisible = false
       this.deliveryRecord.jobId = jobDetail.jobId
       this.deliveryRecord.hrName = jobDetail.hrName
-      this.deliveryRecord.applicantInfoId = sessionStorage.getItem('userId')
+      this.deliveryRecord.applicantId = sessionStorage.getItem('userId')
       api.deliverResume(this.deliveryRecord).then(res => {
         if (res.status === 200) {
           if (res.data.success) {

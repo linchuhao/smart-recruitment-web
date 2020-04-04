@@ -16,7 +16,7 @@
       <el-row>
         <el-col :span="4"><div class="grid-content bg-purple">{{item.enterpriseName}}</div></el-col>
         <el-col :span="5"><div class="grid-content bg-purple-light">{{item.jobName}}</div></el-col>
-        <el-col :span="2"><div class="grid-content bg-purple">{{item.jobProperty}}</div></el-col>
+        <el-col :span="2"><div class="grid-content bg-purple">{{item.jobType}}</div></el-col>
         <el-col :span="5"><div class="grid-content bg-purple-light">{{item.jobMinSalary}} - {{item.jobMaxSalary}}</div></el-col>
         <el-col :span="3"><div class="grid-content bg-purple">{{item.jobCity}}</div></el-col>
         <el-col :span="5"><div class="grid-content bg-purple-light">{{item.deliveryDatetime}}</div></el-col>

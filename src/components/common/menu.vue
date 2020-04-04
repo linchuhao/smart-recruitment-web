@@ -30,10 +30,10 @@
                 </el-col>
               </el-row>
             </el-form-item>
-            <el-form-item label="职位类型" :label-width="formLabelWidth" prop="jobProperty">
+            <el-form-item label="职位类型" :label-width="formLabelWidth" prop="jobType">
               <el-row>
                 <el-col :span="14">
-                  <el-input v-model="jobInfo.jobProperty" autocomplete="off"/>
+                  <el-input v-model="jobInfo.jobType" autocomplete="off"/>
                 </el-col>
               </el-row>
             </el-form-item>
@@ -186,7 +186,7 @@ export default {
         callback()
       }
     }
-    var checkJobProperty = (rule, value, callback) => {
+    var checkJobType = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('职位类型不能为空'))
       } else {
@@ -215,7 +215,7 @@ export default {
         jobExperience: [{validator: checkJobExperience, trigger: 'blur'}],
         jobEducation: [{validator: checkJobEducation, trigger: 'blur'}],
         jobCity: [{validator: checkJobCity, trigger: 'blur'}],
-        jobProperty: [{validator: checkJobProperty, trigger: 'blur'}],
+        jobType: [{validator: checkJobType, trigger: 'blur'}],
         jobResponsibility: [{validator: checkJobResponsibility, trigger: 'blur'}],
         jobRequirement: [{validator: checkJobRequirement, trigger: 'blur'}]
       },
@@ -244,7 +244,7 @@ export default {
         'jobExperience': '',
         'jobAddress': '',
         'jobCity': '',
-        'jobProperty': '',
+        'jobType': '',
         'jobResponsibility': '',
         'jobRequirement': ''
       },

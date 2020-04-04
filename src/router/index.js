@@ -4,6 +4,7 @@ import CommonPage from '../components/common/commonPage.vue'
 import index from '../views/index.vue'
 
 Vue.use(Router)
+const infoCenter = resolve => require(['../views/infoCenter.vue'], resolve)
 const register = resolve => require(['../views/register.vue'], resolve)
 const login = resolve => require(['../views/login.vue'], resolve)
 const userInfo = resolve => require(['../views/userInfo.vue'], resolve)
@@ -53,6 +54,17 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/infoCenter',
+      component: CommonPage,
+      children: [
+        {
+          path: '/',
+          name: 'infoCenter',
+          component: infoCenter
+        }
+      ]
     },
     {
       path: '/search',

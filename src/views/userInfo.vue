@@ -11,10 +11,10 @@
             :show-file-list="false"
             :before-upload="beforeAvatarUpload">
             <img v-if="imageUrl"  class="avatar">
-            <img v-else class="img" :src="list.applicantInfoImg">
+            <img v-else class="img" :src="list.userInfoAvatar">
           </el-upload>
           <span class="username">
-            {{list ? list.applicantInfoName : ''}}
+            {{list ? list.userInfoNickname : ''}}
           </span>
         </div>
       </el-card>
@@ -25,7 +25,7 @@
         </el-tab-pane>
         <el-tab-pane>
           <span slot="label">我的简历<i class="el-icon-arrow-right"></i></span>
-          <my-resume :applicantInfoResume="list.applicantInfoResume"
+          <my-resume :applicantInfoResume="list.userInfoResume"
                      @dataChange="dataChange"/>
         </el-tab-pane>
         <el-tab-pane>
@@ -114,7 +114,7 @@
           'applicantInfoSex': ''
         },
         imageUrl: '',
-        resumeDeliveryRecord: []
+        resumeDeliveryRecord: ''
       }
     },
     computed: {
@@ -136,9 +136,9 @@
     },
     methods: {
       getUserInfo () {
-        api.getApplicantInfo(this.userId).then(res => {
+        api.getUserInfo(this.userId).then(res => {
           if (res.status === 200) {
-            this.list = res.data
+            this.list = res.data.data
             console.log(this.list)
           }
         }).catch(e => {
@@ -159,10 +159,10 @@
       uploadAvatar (file) {
         let formData = new FormData()
         formData.append('avatar', file.file)
-        api.uploadApplicantInfoAvatar(formData, this.userId).then(res => {
+        api.uploadUserInfoAvatar(formData, this.userId).then(res => {
           if (res.status === 200) {
             this.$message.success('上传成功')
-            this.list.applicantInfoImg = URL.createObjectURL(file.file)
+            this.list.userInfoAvatar = URL.createObjectURL(file.file)
           }
         }).catch(e => {
           console.log(e)
@@ -186,7 +186,7 @@
        */
       dataChange (params) {
         console.log(params)
-        this.list.applicantInfoResume = params
+        this.list.userInfoResume = params
       }
     }
   }

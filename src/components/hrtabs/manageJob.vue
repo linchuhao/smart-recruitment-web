@@ -17,8 +17,8 @@
     </el-row>
     <div v-for="item in jobReleaseRecord" v-bind:key="item.id" v-if="jobReleaseRecord">
       <el-row>
-        <el-col :span="4"><div class="grid-content bg-purple">{{item.jobName}}</div></el-col>
-        <el-col :span="2"><div class="grid-content bg-purple-light">{{item.jobProperty}}</div></el-col>
+        <el-col :span="4"><div class="jobName">{{item.jobName}}</div></el-col>
+        <el-col :span="2"><div class="grid-content bg-purple-light">{{item.jobType}}</div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">{{item.jobEducation}}</div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple-light">{{item.jobExperience}}</div></el-col>
         <el-col :span="3"><div class="grid-content bg-purple">{{transformSalary(item.jobMinSalary)}} - {{transformSalary(item.jobMaxSalary)}}</div></el-col>
@@ -37,10 +37,10 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item label="职位类型" :label-width="formLabelWidth" prop="jobProperty">
+        <el-form-item label="职位类型" :label-width="formLabelWidth" prop="jobType">
           <el-row>
             <el-col :span="14">
-              <el-input v-model="jobDetail.jobProperty" autocomplete="off"/>
+              <el-input v-model="jobDetail.jobType" autocomplete="off"/>
             </el-col>
           </el-row>
         </el-form-item>
@@ -160,7 +160,7 @@ export default {
         callback()
       }
     }
-    var checkJobProperty = (rule, value, callback) => {
+    var checkJobType = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('职位类型不能为空'))
       } else {
@@ -189,7 +189,7 @@ export default {
         jobExperience: [{validator: checkJobExperience, trigger: 'blur'}],
         jobEducation: [{validator: checkJobEducation, trigger: 'blur'}],
         jobCity: [{validator: checkJobCity, trigger: 'blur'}],
-        jobProperty: [{validator: checkJobProperty, trigger: 'blur'}],
+        jobType: [{validator: checkJobType, trigger: 'blur'}],
         jobResponsibility: [{validator: checkJobResponsibility, trigger: 'blur'}],
         jobRequirement: [{validator: checkJobRequirement, trigger: 'blur'}]
       },
@@ -264,5 +264,13 @@ export default {
     background-color: #337ff8;
     color: #f3f4f5;
     cursor:pointer;
+  }
+  .jobName{
+    background: #d3dce6;
+    height: 36px;
+    margin: 2px;
+    padding: 10px 0 10px 0;
+    overflow:hidden;
+    white-space:nowrap;
   }
 </style>

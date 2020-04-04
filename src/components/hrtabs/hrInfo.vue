@@ -4,78 +4,85 @@
       <th> 个人信息</th>
       <tr>
         <td>姓名：</td>
-        <td>{{list.hrInfoName}}</td>
+        <td>{{list.userInfoNickname}}</td>
       </tr>
       <tr>
         <td>职位：</td>
-        <td>{{list.hrInfoProperty}}</td>
+        <td>{{list.userInfoPosition}}</td>
       </tr>
       <tr>
         <td>公司：</td>
-        <td>{{list.hrInfoEnterpriseName}}</td>
+        <td>{{list.userInfoEnterpriseName}}</td>
       </tr>
       <tr>
         <td>手机号码：</td>
-        <td>{{list.hrInfoPhone}}</td>
+        <td>{{list.userInfoPhone}}</td>
       </tr>
       <tr>
         <td>邮箱：</td>
-        <td>{{list.hrInfoEmail}}</td>
+        <td>{{list.userInfoEmail}}</td>
       </tr>
       <tr>
         <td>性别：</td>
-        <td>{{list.hrInfoSex}}</td>
+        <td>{{list.userInfoSex}}</td>
       </tr>
       <tr>
         <td>我的简介：</td>
-        <td>{{list.hrInfoIntroduction}}</td>
+        <td>{{list.userInfoIntroduction}}</td>
       </tr>
       <tr>
         <td>学历：</td>
-        <td>{{list.hrInfoEducation}}</td>
+        <td>{{list.userInfoEducation}}</td>
       </tr>
       <tr>
         <td>学校：</td>
-        <td>{{list.hrInfoSchool}}</td>
+        <td>{{list.userInfoSchool}}</td>
+      </tr>
+      <tr>
+        <td>专业：</td>
+        <td>{{list.userInfoMajor}}</td>
       </tr>
       <el-button class="edit" @click="changeEdit">编辑</el-button>
     </table>
     <el-form  :model="list" status-icon :rules="rules2" ref="list" label-width="100px" class="formWrap"
               v-if="isEdit">
-      <el-form-item label="姓名" prop="hrInfoName">
-        <el-input v-model="list.hrInfoName" auto-complete="off"/>
+      <el-form-item label="姓名" prop="userInfoNickname">
+        <el-input v-model="list.userInfoNickname" auto-complete="off"/>
       </el-form-item>
-      <el-form-item label="职位" prop="hrInfoProperty">
-        <el-input v-model="list.hrInfoProperty" auto-complete="off"/>
+      <el-form-item label="职位" prop="userInfoPosition">
+        <el-input v-model="list.userInfoPosition" auto-complete="off"/>
       </el-form-item>
-      <el-form-item label="公司" prop="hrInfoEnterpriseName">
-        <el-input v-model="list.hrInfoEnterpriseName" auto-complete="off"/>
+      <el-form-item label="公司" prop="userInfoEnterpriseName">
+        <el-input v-model="list.userInfoEnterpriseName" auto-complete="off"/>
       </el-form-item>
-      <el-form-item label="手机号码" prop="hrInfoPhone">
-        <el-input v-model="list.hrInfoPhone" auto-complete="off"/>
+      <el-form-item label="手机号码" prop="userInfoPhone">
+        <el-input v-model="list.userInfoPhone" auto-complete="off"/>
       </el-form-item>
-      <el-form-item label="邮箱" prop="hrInfoEmail">
-        <el-input v-model="list.hrInfoEmail" auto-complete="off"/>
+      <el-form-item label="邮箱" prop="userInfoEmail">
+        <el-input v-model="list.userInfoEmail" auto-complete="off"/>
       </el-form-item>
-      <el-form-item label="性别" prop="hrInfoSex">
-        <el-select v-model="list.hrInfoSex" placeholder="请选择性别" style="width: 100%">
+      <el-form-item label="性别" prop="userInfoSex">
+        <el-select v-model="list.userInfoSex" placeholder="请选择性别" style="width: 100%">
           <el-option label="男" value="男"/>
           <el-option label="女" value="女"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="我的简介" prop="hrInfoIntroduction">
-        <el-input v-model="list.hrInfoIntroduction"/>
+      <el-form-item label="我的简介" prop="userInfoIntroduction">
+        <el-input v-model="list.userInfoIntroduction"/>
       </el-form-item>
-      <el-form-item label="学历" prop="hrInfoEducation">
-        <el-select v-model="list.hrInfoEducation" placeholder="请选择性别" style="width: 100%">
+      <el-form-item label="学历" prop="userInfoEducation">
+        <el-select v-model="list.userInfoEducation" placeholder="请选择性别" style="width: 100%">
           <el-option label="大专" value="大专"/>
           <el-option label="本科" value="本科"/>
           <el-option label="硕士" value="硕士"/>
           <el-option label="博士" value="博士"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="学校" prop="hrInfoSchool">
-        <el-input v-model="list.hrInfoSchool"/>
+      <el-form-item label="学校" prop="userInfoSchool">
+        <el-input v-model="list.userInfoSchool"/>
+      </el-form-item>
+      <el-form-item label="专业" prop="userInfoMajor">
+        <el-input v-model="list.userInfoMajor" auto-complete="off"/>
       </el-form-item>
       <el-form-item>
         <el-button class='editor' @click="changeEdit">返回</el-button>
@@ -175,18 +182,26 @@ export default {
         callback()
       }
     }
+    var checkMajor = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('专业不能为空'))
+      } else {
+        callback()
+      }
+    }
     return {
       isEdit: false,
       rules2: {
-        hrInfoName: [{validator: checkName, trigger: 'blur'}],
-        hrInfoEnterpriseName: [{validator: checkEnterprise, trigger: 'blur'}],
-        hrInfoPhone: [{validator: checkPhone, trigger: 'blur'}],
-        hrInfoEmail: [{validator: checkEmail, trigger: 'blur'}],
-        hrInfoProperty: [{validator: checkProperty, trigger: 'blur'}],
-        hrInfoSex: [{validator: checkSex, trigger: 'blur'}],
-        hrInfoIntroduction: [{validator: checkIntroduction, trigger: 'blur'}],
-        hrInfoEducation: [{validator: checkEducation, trigger: 'blur'}],
-        hrInfoSchool: [{validator: checkSchool, trigger: 'blur'}]
+        userInfoName: [{validator: checkName, trigger: 'blur'}],
+        userInfoEnterpriseName: [{validator: checkEnterprise, trigger: 'blur'}],
+        userInfoPhone: [{validator: checkPhone, trigger: 'blur'}],
+        userInfoEmail: [{validator: checkEmail, trigger: 'blur'}],
+        userInfoProperty: [{validator: checkProperty, trigger: 'blur'}],
+        userInfoSex: [{validator: checkSex, trigger: 'blur'}],
+        userInfoIntroduction: [{validator: checkIntroduction, trigger: 'blur'}],
+        userInfoEducation: [{validator: checkEducation, trigger: 'blur'}],
+        userInfoMajor: [{validator: checkMajor, trigger: 'blur'}],
+        userInfoSchool: [{validator: checkSchool, trigger: 'blur'}]
       }
     }
   },
@@ -200,15 +215,12 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           api
-            .updateHrInfo(this.list)
+            .updateUserInfo(this.list)
             .then(res => {
               console.log('list', this.list)
               console.log(res)
               if (res.data.success) {
-                this.$message({
-                  message: '保存成功',
-                  type: 'success'
-                })
+                this.$message.success(res.data.data)
                 this.isEdit = !this.isEdit
               }
             })
