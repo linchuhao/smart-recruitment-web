@@ -60,8 +60,8 @@ export default {
     return axios.get('/api/enterprise/getHotEnterprise', {headers: headers})
   },
   // 获取热门职位信息
-  getHotJob () {
-    return axios.get('/api/job/getHotJob', {headers: headers})
+  getHotJobInfo () {
+    return axios.get('/api/job/getHotJobInfo', {headers: headers})
   },
   // 获取用户消息
   getUserMsg (userId) {

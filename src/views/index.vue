@@ -119,9 +119,9 @@
   </div>
   <div class="newsContain">
     <div class="temp">
-    <div class="newsItem"  v-for = "(item, key) in jobList" :key = "key" @click="jobDetail(item.jobId)">
+    <div class="newsItem"  v-for = "(item, key) in jobList" :key = "key">
       <div class="picContain" ontouchstart="this.classList.toggle('hover');">
-        <div class="flipper">
+        <div class="flipper" @click="findDetail(item)">
       <span class="itemPic">{{item.jobName}}</span>
       <span class="back">工资：{{transformSalary(item.jobMinSalary)}} - {{transformSalary(item.jobMaxSalary)}}</span>
         </div>
@@ -133,7 +133,42 @@
     </div>
     </div>
   </div>
-
+  <el-dialog title="职位详情" :visible.sync="jobDetailVisible" class="jobDetailDialog" width="45%">
+    <el-card>
+      <p>
+        {{jobDetail.jobName}}
+        <span class="dividingLine">|</span>
+        {{jobDetail.enterpriseName}}
+        <span class="dividingLine">|</span>
+        {{jobDetail.jobCity}}
+      </p>
+      <p>
+        <span>薪酬范围：</span>
+        <span class="salary">{{transformSalary(jobDetail.jobMinSalary)}} - {{transformSalary(jobDetail.jobMaxSalary)}}</span>
+      </p>
+      <p>
+        <span>学历要求：</span>
+        <span>{{jobDetail.jobEducation}}</span>
+      </p>
+      <p>
+        <span>工作经验：</span>
+        <span>{{jobDetail.jobExperience}}</span>
+      </p>
+      <p>工作职责：</p>
+      <p  v-html="jobDetail.jobResponsibility">{{jobDetail.jobResponsibility}}</p>
+      <p>任职要求：</p>
+      <p  v-html="jobDetail.jobRequirement">{{jobDetail.jobRequirement}}</p>
+      <p>详细地址：{{jobDetail.jobAddress}}</p>
+      <div>
+        <span style="float: left; margin: 4px 0 4px 0">发布人: {{jobDetail.hrName}}</span>
+        <span style="float: right;  margin: 4px 0 4px 0">{{jobDetail.jobDatetime}}</span>
+      </div>
+    </el-card>
+    <span slot="footer" class="dialog-footer">
+            <el-button @click="jobDetailVisible = false">取 消</el-button>
+            <el-button type="primary" @click="deliverResume(jobDetail)" v-if="isApplicant">投 递</el-button>
+          </span>
+  </el-dialog>
   <div class="aboutus">
     <div id="aboutusInfo">
     <h2>关于我们</h2>
@@ -185,6 +220,7 @@ body {
 .picContain {
   margin-right: 10px;
   perspective: 1000px;
+  cursor: pointer;
 }
 
 .picContain:hover .flipper, .picContain.hover .flipper{
@@ -395,6 +431,17 @@ body {
   border: 0;
 }
 
+.jobDetailDialog{
+  text-align: left;
+}
+.el-dialog__body{
+  padding: 0px 20px;
+}
+.jobDetailDialog p {
+  margin: 4px 0 4px 0;
+  text-align: left;
+}
+
 </style>
 <script>
 import fetch from '../api/fetch'
@@ -416,9 +463,13 @@ export default {
       enterpriseList: [],
       jobList: [],
       recommandList: [],
+      isApplicant: sessionStorage.getItem('role') === '1',
       isHr: localStorage.getItem('role') === '1',
       isLogin: !!localStorage.getItem('token'),
       isShow: false,
+      jobDetailVisible: false,
+      jobDetail: {},
+      deliveryRecord: {},
       getResumeList: {
         name: '',
         sex: '',
@@ -445,7 +496,7 @@ export default {
   mounted () {
     window.addEventListener('scroll', this.handler)
     this.getHotEnterprise()
-    this.getHotJob()
+    this.getHotJobInfo()
     this.getRecommand()
   },
   methods: {
@@ -470,17 +521,16 @@ export default {
       }
     },
 
-    jobDetail (id) {
-      localStorage.setItem('jobId', id)
-      this.$router.push({name: 'jobInfo'})
+    findDetail (jobDetail) {
+      this.jobDetailVisible = true
+      this.jobDetail = jobDetail
     },
 
-    getHotJob () {
-      api.getHotJob().then(res => {
+    getHotJobInfo () {
+      api.getHotJobInfo().then(res => {
         if (res.status === 200) {
           this.jobList = res.data.data
           console.log(res.data.data)
-          console.log('res', res)
         }
       }).catch(e => {
         console.log(e)
@@ -492,7 +542,6 @@ export default {
         if (res.status === 200) {
           this.enterpriseList = res.data.data
           console.log(res.data.data)
-          console.log('res', res)
         }
       }).catch(e => {
         console.log(e)
@@ -538,6 +587,29 @@ export default {
         .catch(e => {
           console.log(e)
         })
+    },
+    deliverResume (jobDetail) {
+      if (sessionStorage.getItem('userId')) {
+        this.jobDetailVisible = false
+        this.deliveryRecord.applicantId = sessionStorage.getItem('userId')
+        this.deliveryRecord.jobId = jobDetail.jobId
+        this.deliveryRecord.jobName = jobDetail.jobName
+        this.deliveryRecord.jobFrom = jobDetail.jobFrom
+        api.deliverResume(this.deliveryRecord).then(res => {
+          if (res.status === 200) {
+            if (res.data.success) {
+              this.$message.success(res.data.data)
+            } else {
+              this.$message.error(res.data.msg)
+            }
+          }
+        }).catch(e => {
+          console.log(e)
+        })
+      } else {
+        this.jobDetailVisible = false
+        this.$message.error('请先登录后再进行简历投递！')
+      }
     }
   }
 
