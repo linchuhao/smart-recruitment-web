@@ -4,17 +4,20 @@
       <img src="static/img/notFound.png"/>
       <p>暂时没有消息哦</p>
     </el-card>
-  <el-card class="infocard" v-for="(item, key) in messageList" :key="key" v-show="msgShow">
+  <el-card class="messageCard" v-for="(item, key) in messageList" :key="key" v-show="msgShow">
     <i class="el-icon-message myMsg"/>
-    <div class="infoTitle" @click="msgDetail(item.userMsgId,item.userMsgStatus,item.userMsgTitle, item.userMsgContent)">
+    <div class="messageTitle" @click="msgDetail(item)">
       <p>{{item.userMsgTitle}}</p>
     </div>
-   <p class="time">{{item.sender}} | {{item.userMsgSendDatetime}}</p>
+   <p class="time">{{item.sender}} | {{item.userMsgCreateDatetime}}</p>
      <el-tag v-if="item.userMsgStatus" class="haveRead">已读</el-tag>
       <el-tag v-else type="warning" class="haveRead" >未读</el-tag>
   </el-card>
   <el-dialog  :title= this.title :visible.sync="dialogVisible" width="50%" >
-  <span>{{content}}</span>
+    <p style="text-align: left">{{content}}</p>
+    <div class="annex" @click="openAnnex(userMsgAnnex)">
+      <p><img src="static/img/annex.png" class="annexIcon"/>{{this.userMsgAnnex.replace('static/resume/','')}}</p>
+    </div>
   <span slot="footer" class="dialog-footer">
     <el-button type="primary" @click="confirmClick()">确定</el-button>
   </span>
@@ -34,6 +37,7 @@ export default {
       dialogVisible: false,
       content: '',
       userId: sessionStorage.getItem('userId'),
+      userMsgAnnex: '',
       msgShow: false
     }
   },
@@ -65,10 +69,11 @@ export default {
           console.log(e)
         })
     },
-    msgDetail (msgId, msgStatus, title, msg) {
+    msgDetail (item) {
       this.dialogVisible = true
-      this.content = msg
-      this.title = title
+      this.content = item.userMsgContent
+      this.title = item.userMsgTitle
+      this.userMsgAnnex = item.userMsgAnnex
       /*      let info = {
         id: num,
         userId: sessionStorage.getItem('userId')
@@ -78,12 +83,30 @@ export default {
       }).catch(e => {
         console.log(e)
       }) */
+    },
+    openAnnex (annex) {
+      console.log('查看简历' + annex)
+      window.open(annex)
     }
   }
 }
 </script>
 
 <style>
+  .annex {
+    cursor: pointer;
+    text-align: left;
+    font-weight: bold;
+  }
+  .annex :hover {
+    color: red;
+    transform: scale(1.015);
+    transition: 3ms;
+  }
+  .annexIcon {
+    width: 5%;
+    height: 5%;
+  }
   .noFound p {
     font-size: 28px;
     color: #909399;
@@ -95,17 +118,22 @@ export default {
     width: 350px;
     height: 300px;
   }
-.infocard {
+.messageCard {
   width: 1000px;
   margin: 20px auto auto auto;
+  cursor: pointer;
 }
-.infoTitle {
+  .messageCard :hover {
+    transform: scale(1.015);
+    transition: 3ms;
+  }
+.messageTitle {
   text-align: center;
   line-height: 90px;
   height: 90px;
   margin: auto auto auto 70px;
 }
-.infoTitle p {
+.messageTitle p {
   float: left;
   margin-top: 8px;
 }

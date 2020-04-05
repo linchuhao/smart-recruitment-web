@@ -123,7 +123,7 @@
       <div class="picContain" ontouchstart="this.classList.toggle('hover');">
         <div class="flipper">
       <span class="itemPic">{{item.jobName}}</span>
-      <span class="back">工资：{{item.jobMinSalary}}-{{item.jobMaxSalary}}</span>
+      <span class="back">工资：{{transformSalary(item.jobMinSalary)}} - {{transformSalary(item.jobMaxSalary)}}</span>
         </div>
     </div>
     <div>
@@ -449,6 +449,9 @@ export default {
     this.getRecommand()
   },
   methods: {
+    transformSalary (salary) {
+      return salary / 1000 + 'K'
+    },
     handler () {
       let info = document.getElementById('aboutusInfo') || null
       let card = document.getElementsByClassName('temp')[0] || null

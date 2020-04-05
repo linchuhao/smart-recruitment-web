@@ -119,7 +119,7 @@
           callback()
         }
       }
-      var checkProperty = (rule, value, callback) => {
+      var checkPosition = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('职位不能为空'))
         } else {
@@ -182,7 +182,7 @@
           userInfoMajor: [{validator: checkMajor, trigger: 'blur'}],
           userInfoPhone: [{validator: checkPhone, trigger: 'blur'}],
           userInfoEmail: [{validator: checkEmail, trigger: 'blur'}],
-          userInfoProperty: [{validator: checkProperty, trigger: 'blur'}],
+          userInfoPosition: [{validator: checkPosition, trigger: 'blur'}],
           userInfoSex: [{validator: checkSex, trigger: 'blur'}],
           userInfoIntroduction: [{validator: checkIntroduction, trigger: 'blur'}],
           userInfoEducation: [{validator: checkEducation, trigger: 'blur'}],

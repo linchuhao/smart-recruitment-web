@@ -157,7 +157,8 @@ export default {
       if (this.deliveryRecord.applicantId) {
         this.jobDetailVisible = false
         this.deliveryRecord.jobId = jobDetail.jobId
-        this.deliveryRecord.hrName = jobDetail.hrName
+        this.deliveryRecord.jobName = jobDetail.jobName
+        this.deliveryRecord.jobFrom = jobDetail.jobFrom
         api.deliverResume(this.deliveryRecord).then(res => {
           if (res.status === 200) {
             if (res.data.success) {
