@@ -4,10 +4,11 @@
     <img src="../assets/logo_1.png" class="logo" @click="backIndex"/>
       <el-form :model="loginInfo" status-icon :rules="rules2" ref="loginInfo" label-width="100px" class="loginForm">
         <el-form-item  prop="username">
-          <el-input type="text" v-model="loginInfo.username" auto-complete="off" class="loginInput" placeholder="用户名"></el-input>
+          <el-input type="text" v-model="loginInfo.username" auto-complete="off" class="loginInput" placeholder="用户名"/>
         </el-form-item>
         <el-form-item  prop="password">
-          <el-input type="password" v-model="loginInfo.password" auto-complete="off" class="loginInput" placeholder="密码"></el-input>
+          <el-input type="password" v-model="loginInfo.password" auto-complete="off" class="loginInput"
+                    placeholder="密码"/>
         </el-form-item>
         <el-form-item>
           <el-button class="loginBtn" @click="submitForm('loginInfo')" >登录</el-button>

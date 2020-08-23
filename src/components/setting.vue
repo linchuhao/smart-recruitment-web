@@ -64,8 +64,6 @@
 
 <script>/* eslint-disable indent */
 
-  import fetch from '../api/fetch'
-
   export default {
     data () {
       var checkphone = (rule, value, callback) => {
@@ -122,26 +120,6 @@
       }
     },
     methods: {
-      changePhone (formName) {
-        this.$refs[formName].validate(valid => {
-          if (valid) {
-            fetch.changePhone(this.phoneForm).then(res => {
-              if (res.status === 200) {
-                if (res.data.success) {
-                  this.$message({
-                    message: '修改成功',
-                    type: 'success'
-                  })
-                }
-              }
-            }).catch(e => {
-              console.log(e)
-            })
-          } else {
-            console.log('error submit!!')
-          }
-        })
-      },
       changePass (formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {

@@ -444,7 +444,6 @@ body {
 
 </style>
 <script>
-import fetch from '../api/fetch'
 import api from '../api/index'
 export default {
   data () {
@@ -551,42 +550,6 @@ export default {
     getCompanyDetail (id) {
       localStorage.setItem('companyId', id)
       this.$router.push({name: 'companyDetail'})
-    },
-    // 获取推荐列表
-    getRecommand () {
-      if (this.isLogin) {
-        if (this.isHr) {
-          fetch.recommendCandidate().then(res => {
-            if (res.status === 200) {
-              this.recommandList = res.data.data
-            }
-          })
-        } else {
-          fetch.recommendJob().then(res => {
-            if (res.status === 200) {
-              this.recommandList = res.data.data
-            }
-          })
-        }
-      }
-    },
-    // 查看推荐候选人
-    getTableList (id) {
-      this.isShow = true
-      fetch
-        .getResume(id)
-        .then(res => {
-          if (res.status === 200) {
-            if (res.data.success === true) {
-              if (res.data.data !== null) {
-                this.getResumeList = res.data.data
-              }
-            }
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        })
     },
     deliverResume (jobDetail) {
       if (sessionStorage.getItem('userId')) {

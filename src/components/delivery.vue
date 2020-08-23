@@ -98,22 +98,6 @@ export default {
     checkDetail (id) {
       localStorage.setItem('jobId', id)
       this.$router.push({name: 'jobInfo'})
-    },
-    getList () {
-      /*      fetch
-        .deliveryList()
-        .then(res => {
-          if (res.status === 200) {
-            if (res.data.data === null) {
-              this.show = false
-            } else {
-              this.list = res.data.data.sendList ? res.data.data.sendList : []
-            }
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        }) */
     }
   }
 }

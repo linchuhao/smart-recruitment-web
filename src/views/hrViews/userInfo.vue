@@ -19,20 +19,20 @@
     </el-card>
     <el-tabs type="border-card" tabPosition="left" style="width:1000px;height: 1000px;" class="hr">
       <el-tab-pane>
-        <span slot="label">个人信息<i class="el-icon-arrow-right"></i></span>
+        <span slot="label">个人信息<i class="el-icon-arrow-right"/></span>
         <hrInfo :list="list"/>
       </el-tab-pane>
       <el-tab-pane>
-      <span slot="label">职位管理<i class="el-icon-arrow-right"></i></span>
+      <span slot="label">职位管理<i class="el-icon-arrow-right"/></span>
         <manage-job :jobReleaseRecord="jobReleaseRecord"/>
     </el-tab-pane>
      <el-tab-pane>
-      <span slot="label">投递记录<i class="el-icon-arrow-right"></i></span>
+      <span slot="label">投递记录<i class="el-icon-arrow-right"/></span>
        <receive :receiveRecord="receiveRecord"/>
     </el-tab-pane>
      <el-tab-pane >
-      <span slot="label">设置<i class="el-icon-arrow-right"></i></span>
-     <setting></setting>
+      <span slot="label">设置<i class="el-icon-arrow-right"/></span>
+       <setting/>
     </el-tab-pane>
 </el-tabs>
   </div>

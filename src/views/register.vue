@@ -7,24 +7,24 @@
       </div>
       <el-form :model="hrInfo" status-icon :rules="hrrules" ref="hrInfo" label-width="100px" class="hrruleForm">
         <el-form-item  prop="username">
-          <el-input type="text" v-model="hrInfo.username" auto-complete="off" placeholder="用户名"></el-input>
+          <el-input type="text" v-model="hrInfo.username" auto-complete="off" placeholder="用户名"/>
         </el-form-item>
         <el-form-item  prop="password">
-          <el-input type="password" v-model="hrInfo.password" auto-complete="off" placeholder="密码"></el-input>
+          <el-input type="password" v-model="hrInfo.password" auto-complete="off" placeholder="密码"/>
         </el-form-item>
         <el-form-item  prop="checkPass">
-          <el-input type="password" v-model="hrInfo.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
+          <el-input type="password" v-model="hrInfo.checkPass" auto-complete="off" placeholder="确认密码"/>
         </el-form-item>
         <el-form-item prop="phone">
-          <el-input v-model.number="hrInfo.phone" placeholder="手机号"></el-input>
+          <el-input v-model.number="hrInfo.phone" placeholder="手机号"/>
         </el-form-item>
         <div v-if="isHr">
           <el-form-item prop="enterpriseName">
-            <el-input type="text"  v-model="hrInfo.enterpriseName" placeholder="公司名称"></el-input>
+            <el-input type="text" v-model="hrInfo.enterpriseName" placeholder="公司名称"/>
           </el-form-item>
         </div>
         <el-form-item prop="email">
-          <el-input v-model="hrInfo.email" placeholder="邮箱"></el-input>
+          <el-input v-model="hrInfo.email" placeholder="邮箱"/>
         </el-form-item>
         <el-form-item>
           <el-button class="registerBtn" @click="hrSubmit('hrInfo')">注册</el-button>
@@ -162,7 +162,6 @@
 
 <script>/* eslint-disable indent,quotes,space-before-function-paren,brace-style */
 
-import fetch from '../api/fetch'
 import api from '../api/index'
 export default {
   data() {
@@ -358,24 +357,6 @@ export default {
     // 选择公司
     handleSelect(item) {
       this.companyId = item.label
-    },
-    // 提交公司信息
-    submitCompanyInfo() {
-      fetch.addCompany(this.companyInfo).then(res => {
-        if (res.data.code === 0) {
-          this.$message({
-            message: "添加成功",
-            type: "success"
-          })
-          this.$router.push({ name: "login" })
-        } else {
-          this.$message({
-            message: res.data.msg,
-            type: "warning"
-          })
-        }
-      })
-      console.log(this.companyInfo)
     },
     // 注册切换角色
     changeTabs(isHr) {

@@ -62,7 +62,6 @@
 
 <script>/* eslint-disable indent */
 
-import fetch from '../api/fetch'
 import api from '../api/index'
 export default {
   props: ['applicantInfoResume'],
@@ -103,27 +102,6 @@ export default {
       }).catch(e => {
         console.log(e)
       })
-    },
-    getResume (userId) {
-      fetch
-        .getResume(userId)
-        .then(res => {
-          if (res.status === 200) {
-            if (res.data.success === true) {
-              if (res.data.data !== null) {
-                this.haveResume = true
-                this.resumeList = res.data.data
-                this.tableList = res.data.data
-                this.len = res.data.data.skills.length
-              } else {
-                this.haveResume = false
-              }
-            }
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        })
     }
   }
 }

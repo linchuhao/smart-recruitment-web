@@ -16,7 +16,7 @@
   <el-dialog  :title= this.title :visible.sync="dialogVisible" width="50%" >
     <p style="text-align: left">{{content}}</p>
     <div class="annex" @click="openAnnex(userMsgAnnex)">
-      <p><img src="static/img/annex.png" class="annexIcon"/>{{this.userMsgAnnex.replace('static/resume/','')}}</p>
+      <p v-if="this.userMsgAnnex"><img src="static/img/annex.png" class="annexIcon"/>{{this.userMsgAnnex.replace('static/resume/','')}}</p>
     </div>
   <span slot="footer" class="dialog-footer">
     <el-button type="primary" @click="confirmClick()">确定</el-button>
@@ -73,7 +73,9 @@ export default {
       this.dialogVisible = true
       this.content = item.userMsgContent
       this.title = item.userMsgTitle
-      this.userMsgAnnex = item.userMsgAnnex
+      if (item.userMsgAnnex) {
+        this.userMsgAnnex = item.userMsgAnnex
+      }
       /*      let info = {
         id: num,
         userId: sessionStorage.getItem('userId')
